@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Globalization;
+
+
 
 namespace ConsoleApp1
 {
@@ -11,7 +14,7 @@ namespace ConsoleApp1
     {
         private List<AccountHolder> accountHolders = new List<AccountHolder>();
 
-        private static String fileName = ("./dataSheet.txt");
+        private static String fileName = ("../../../dataSheet.txt");
 
         public AuctionHouse()
         {
@@ -20,21 +23,22 @@ namespace ConsoleApp1
 
         public void RegisterAccountHolder(AccountId accountId, string name, AccountPass accountPass)
         {
-            if (File.Exists(fileName))
-            {
-                using StreamReader reader = new StreamReader(fileName);
-                while (!reader.EndOfStream)
-                { 
-                    Console.WriteLine($"current line is {reader.ReadLine()}");
-                }
-            }
+            //if (File.Exists(fileName))
+            //{
+            //    using StreamReader reader = new StreamReader(fileName);
+            //    while (!reader.EndOfStream)
+            //    {
+            //        Console.WriteLine($"current line is {reader.ReadLine()}");
+            //    }
+            //}
+
+            // Console.WriteLine(Directory.GetCurrentDirectory());
 
             accountHolders.Add(new AccountHolder(accountId, name, accountPass));
 
-            File.WriteAllText(fileName, (accountId + name + accountPass));
-            
-            
-            Console.WriteLine(accountHolders);
+            using StreamWriter writer = File.AppendText(fileName);
+
+            writer.Write($"{accountId}, {name}, {accountPass}");
         }
 
         public bool HasAccountHolder(AccountId accountId)
