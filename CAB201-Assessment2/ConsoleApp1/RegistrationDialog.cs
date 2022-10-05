@@ -29,10 +29,10 @@ namespace ConsoleApp1
 				}
 			}
 
-			AccountId acct;
-			acct = Util.ReadAccountId("Please enter the new account email");
+			AccountId email;
+			email = Util.ReadAccountId("Please enter the new account email");
 
-			if (AuctionHouse.HasAccountHolder(acct))
+			if (AuctionHouse.HasAccountHolder(email))
 			{
 				Console.WriteLine("Account already exists");
 				return;
@@ -43,7 +43,7 @@ namespace ConsoleApp1
 
 
 
-			AuctionHouse.RegisterAccountHolder(acct, name, pass);
+			AuctionHouse.RegisterAccountHolder(email, name, pass);
 
 		}
 	}

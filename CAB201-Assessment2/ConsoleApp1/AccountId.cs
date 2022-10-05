@@ -10,12 +10,11 @@ namespace ConsoleApp1
     {
         const char Separator = '-';
 
-        public AccountId(uint branchId, uint accountNum)
+        public AccountId(string branchId)
         {
-            if (IsValid(branchId, accountNum))
+            if (IsValid(branchId))
             {
-                BranchId = branchId;
-                AccountNum = accountNum;
+                Email = branchId;
             }
             else
             {
@@ -23,20 +22,15 @@ namespace ConsoleApp1
             }
         }
 
-        public uint BranchId
+        public string Email
         {
             get;
         }
 
-        public uint AccountNum
+        public static bool IsValid(string email)
         {
-            get;
-        }
-
-        public static bool IsValid(uint branchId, uint accountNum)
-        {
-            if (branchId < 100 || branchId >= 1000) return false;
-            if (accountNum < 100000 || accountNum >= 1000000) return false;
+            //if (branchId < 100 || branchId >= 1000) return false;
+            //if (accountNum < 100000 || accountNum >= 1000000) return false;
             return true;
         }
 
@@ -48,14 +42,10 @@ namespace ConsoleApp1
             {
                 string[] parts = s.Split(Separator);
 
-                if (parts.Length == 2
-                    && uint.TryParse(parts[0], out uint branchId)
-                    && uint.TryParse(parts[1], out uint accountNum)
-                    && IsValid(branchId, accountNum)
-                    )
+                if (IsValid(s))
                 {
 
-                    account = new AccountId(branchId, accountNum);
+                    account = new AccountId(s);
                 }
             }
 
@@ -64,7 +54,7 @@ namespace ConsoleApp1
 
         public override string ToString()
         {
-            return $"{BranchId}{Separator}{AccountNum}";
+            return $"{Email}";
         }
 
         public override bool Equals(object? obj)
@@ -76,7 +66,7 @@ namespace ConsoleApp1
             else if (obj is AccountId)
             {
                 AccountId other = (AccountId)obj;
-                return this.BranchId == other.BranchId && this.AccountNum == other.AccountNum;
+                return this.Email == other.Email;
             }
             else
             {
@@ -86,7 +76,7 @@ namespace ConsoleApp1
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(BranchId, AccountNum);
+            return HashCode.Combine(Email);
         }
     }
 }

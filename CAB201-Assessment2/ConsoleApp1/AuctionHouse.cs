@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 
 
@@ -16,6 +18,8 @@ namespace ConsoleApp1
 
         private static String fileName = ("../../../dataSheet.txt");
 
+        const string DELIM = ",";
+
         public AuctionHouse()
         {
             // throw new System.NotImplementedException();
@@ -23,23 +27,9 @@ namespace ConsoleApp1
 
         public void RegisterAccountHolder(AccountId accountId, string name, AccountPass accountPass)
         {
-            //if (File.Exists(fileName))
-            //{
-            //    using StreamReader reader = new StreamReader(fileName);
-            //    while (!reader.EndOfStream)
-            //    {
-            //        Console.WriteLine($"current line is {reader.ReadLine()}");
-            //    }
-            //}
-
-            // Console.WriteLine(Directory.GetCurrentDirectory());
-
-            accountHolders.Add(new AccountHolder(accountId, name, accountPass));
-
             using StreamWriter writer = File.AppendText(fileName);
 
-
-            writer.Write($"{accountId}, {name}, {accountPass}");
+            writer.Write(new AccountHolder(accountId, name, accountPass));
         }
 
         public bool HasAccountHolder(AccountId accountId)
@@ -62,13 +52,17 @@ namespace ConsoleApp1
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
+                    string[] fields = line.Split(DELIM);
 
+                    if (accountId.ToString() == fields[0])
+                    {
+                        AccountId currentId;
+                        AccountPass currentPass;
+                        AccountId.TryParse(fields[0], out currentId);
+                        AccountPass.TryParse(fields[2], out currentPass);
+                        return new AccountHolder(currentId, fields[1], currentPass);
+                    }
                 }
-            }
-
-            foreach (AccountHolder accountHolder in accountHolders)
-            {
-                if (accountHolder.AccountMatches(accountId)) return accountHolder;
             }
 
             return null;
