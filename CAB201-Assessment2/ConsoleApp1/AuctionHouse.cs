@@ -38,6 +38,7 @@ namespace ConsoleApp1
 
             using StreamWriter writer = File.AppendText(fileName);
 
+
             writer.Write($"{accountId}, {name}, {accountPass}");
         }
 
