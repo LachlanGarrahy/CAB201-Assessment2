@@ -56,7 +56,7 @@ namespace ConsoleApp1
             {
                 return false;
             }
-            else if (obj is AccountId)
+            else if (obj is AccountPass)
             {
                 AccountPass other = (AccountPass)obj;
                 return this.Password == other.Password;

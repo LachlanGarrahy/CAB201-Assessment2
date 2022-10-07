@@ -17,7 +17,10 @@ namespace ConsoleApp1
         {
             AccountId acct = Util.ReadAccountId("Please enter the account email");
 
-            AccountHolder holder = AuctionHouse.GetAccountHolder(acct);
+            AccountPass acctPass = Util.ReadAccountPass("Please enter the account password");
+
+            AccountHolder holder = AuctionHouse.GetAccountHolder(acct, acctPass);
+
             if (holder != null)
             {
 

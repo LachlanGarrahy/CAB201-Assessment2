@@ -11,8 +11,10 @@
 		{
 			Console.WriteLine(Logo);
 
-			AuctionHouse bank = new AuctionHouse();
-			MainMenu menu = new MainMenu(Title, bank);
+			AuctionHouse house = new AuctionHouse();
+			DataBase data = new DataBase();	
+			MainMenu menu = new MainMenu(Title, house);
+			data.InitialiseDb(house);
 			menu.Display();
 
 		}

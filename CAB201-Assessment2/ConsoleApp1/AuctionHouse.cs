@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Globalization;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 
 
@@ -14,11 +12,7 @@ namespace ConsoleApp1
 {
     public class AuctionHouse
     {
-        private List<AccountHolder> accountHolders = new List<AccountHolder>();
-
-        private static String fileName = ("../../../dataSheet.txt");
-
-        const string DELIM = ",";
+        private static List<AccountHolder> accountHolders = new List<AccountHolder>();
 
         public AuctionHouse()
         {
@@ -27,42 +21,29 @@ namespace ConsoleApp1
 
         public void RegisterAccountHolder(AccountId accountId, string name, AccountPass accountPass)
         {
-            using StreamWriter writer = File.AppendText(fileName);
+            accountHolders.Add(new AccountHolder(accountId, name, accountPass));
+        }
 
-            writer.Write(new AccountHolder(accountId, name, accountPass));
+        public static void SaveAccountHolders()
+        {
+            foreach (var accountHolder in accountHolders) DataBase.SaveAccountHoldersToDb(accountHolder.ToString());
         }
 
         public bool HasAccountHolder(AccountId accountId)
         {
-            //foreach (AccountHolder accountHolder in accountHolders) {
-            //	if (accountHolder.AccountMatches(accountId)) return true;
-            //}
+            foreach (AccountHolder accountHolder in accountHolders)
+            {
+                if (accountHolder.AccountIdMatches(accountId)) return true;
+            }
 
-            //return false;
-
-            return GetAccountHolder(accountId) != null;
+            return false;
         }
 
-        public AccountHolder GetAccountHolder(AccountId accountId)
+        public AccountHolder GetAccountHolder(AccountId accountId, AccountPass accountPass)
         {
-            if (File.Exists(fileName))
+            foreach(AccountHolder accountHolder in accountHolders)
             {
-                using StreamReader reader = new StreamReader(fileName);
-
-                while (!reader.EndOfStream)
-                {
-                    string line = reader.ReadLine();
-                    string[] fields = line.Split(DELIM);
-
-                    if (accountId.ToString() == fields[0])
-                    {
-                        AccountId currentId;
-                        AccountPass currentPass;
-                        AccountId.TryParse(fields[0], out currentId);
-                        AccountPass.TryParse(fields[2], out currentPass);
-                        return new AccountHolder(currentId, fields[1], currentPass);
-                    }
-                }
+                if (accountHolder.AccountIdMatches(accountId) & accountHolder.AccountPassMatches(accountPass)) return accountHolder;
             }
 
             return null;

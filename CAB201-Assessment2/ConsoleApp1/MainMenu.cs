@@ -32,6 +32,7 @@ namespace ConsoleApp1
                 }
                 else if (option == EXIT)
                 {
+                    AuctionHouse.SaveAccountHolders();
                     break;
                 }
                 else
