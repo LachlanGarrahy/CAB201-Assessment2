@@ -12,7 +12,7 @@ namespace ConsoleApp1
 {
     public class AuctionHouse
     {
-        private static List<AccountHolder> accountHolders = new List<AccountHolder>();
+        private List<AccountHolder> accountHolders = new List<AccountHolder>();
 
         public AuctionHouse()
         {
@@ -24,7 +24,7 @@ namespace ConsoleApp1
             accountHolders.Add(new AccountHolder(accountId, name, accountPass));
         }
 
-        public static void SaveAccountHolders()
+        public void SaveAccountHolders()
         {
             foreach (var accountHolder in accountHolders) DataBase.SaveAccountHoldersToDb(accountHolder.ToString());
         }

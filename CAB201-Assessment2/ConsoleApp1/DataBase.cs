@@ -15,8 +15,8 @@ namespace ConsoleApp1
             // throw new System.NotImplementedException();
         }
 
-        private static String fileName = ("../../../dataSheet.txt");
-        const string DELIM = ",";
+        private const string fileName = ("../../../dataSheet.txt");
+        private const string DELIM = ",";
 
         public static void SaveAccountHoldersToDb(string accountHolder)
         {
