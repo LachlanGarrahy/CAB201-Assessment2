@@ -27,7 +27,6 @@ namespace ConsoleApp1
             {
                 UserMenu menu = new UserMenu("Client Sign In", AuctionHouse);
                 menu.Display();
-                Console.WriteLine("Congratulations, you have successfully signed in!!!");
             }
 
             else

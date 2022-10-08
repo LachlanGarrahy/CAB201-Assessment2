@@ -24,12 +24,8 @@ namespace ConsoleApp1
             VIEW_PURCHASES_OPT = 5,
             LOG_OFF_OPT = 6;
 
-        private const string MainMenuTitle = "Main Menu\n" +
-                            "---------";
-        private AuctionHouse auctionHouse;
         public UserMenu(string title, AuctionHouse house) : base(title, house)
         {
-            auctionHouse = house;
         }
 
         public override void Display()

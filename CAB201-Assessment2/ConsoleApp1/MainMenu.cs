@@ -27,11 +27,9 @@ namespace ConsoleApp1
 
         public override void Display()
         {
-            WriteLine($"\n{Title}");
-
-
             while (true)
             {
+                WriteLine($"\n{Title}");
                 uint option = Util.ReadUint(REGISTER, SIGNIN, EXIT);
 
                 if (option == EXIT_OPT)
