@@ -26,6 +26,14 @@ namespace ConsoleApp1
 
             writer.Write($"Client,{fields[0]},{fields[1]},{fields[2]}\n");
         }
+        public static void SaveUserAddressesToDb(string accountHolder)
+        {
+            string[] fields = accountHolder.Split(DELIM);
+
+            using StreamWriter writer = File.AppendText(fileName);
+
+            writer.Write($"Address,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]},{fields[7]}\n");
+        }
 
         public void InitialiseDb(AuctionHouse house)
         {
@@ -33,25 +41,42 @@ namespace ConsoleApp1
             {
                 using StreamReader reader = new StreamReader(fileName);
 
-                while (!reader.EndOfStream)
-                {
-                    string line = reader.ReadLine();
-                    string[] fields = line.Split(DELIM);
-
-                    if (fields[0] == "Client")
-                    {
-                        AccountId currentId;
-                        string name = fields[2];
-                        AccountPass currentPass;
-                        AccountId.TryParse(fields[1], out currentId);
-                        AccountPass.TryParse(fields[3], out currentPass);
-                        house.RegisterAccountHolder(currentId, name, currentPass);
-                    }
-                }
+                checkLines(reader, house);
+                
                 reader.Close();
                 File.Delete(fileName);
             }
         }
 
+        private void checkLines(StreamReader reader, AuctionHouse house)
+        {
+            while (!reader.EndOfStream)
+            {
+                string line = reader.ReadLine();
+                string[] fields = line.Split(DELIM);
+
+                if (fields[0] == "Client") createClients(fields, house);
+                else if (fields[0] == "Address") createAddresses(fields, house);
+            }
+        }
+        private void createClients(string[] fields, AuctionHouse house)
+        {
+            AccountId.TryParse(fields[1], out AccountId currentId);
+            string name = fields[2];
+            AccountPass.TryParse(fields[3], out AccountPass currentPass);
+            house.RegisterAccountHolder(currentId, name, currentPass);
+        }
+        private void createAddresses(string[] fields, AuctionHouse house)
+        {
+            AccountId.TryParse(fields[1], out AccountId currentId);
+            uint unitNo = uint.Parse(fields[2]);
+            uint stNo = uint.Parse(fields[3]);
+            string stName = fields[4];
+            string suffix = fields[5];
+            string city = fields[6];
+            string state = fields[7];
+            uint postcode = uint.Parse(fields[8]);
+            house.RegisterUserAddress(currentId, unitNo, stNo, stName, suffix, city, state, postcode);
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace ConsoleApp1
 
             if (holder != null)
             {
+                if (!AuctionHouse.HasAddress(holder.AccountId)) initialiseAccountAddress(holder);
                 UserMenu menu = new UserMenu("Client Sign In", AuctionHouse);
                 menu.Display();
             }
@@ -34,6 +35,14 @@ namespace ConsoleApp1
 
                 Console.WriteLine("Account id not recognised...");
             }
+        }
+
+        private void initialiseAccountAddress(AccountHolder holder)
+        {
+            string addressTitle = $"Personal Details for {holder.Name}({holder.AccountId})\n" +
+                       "----------------------------------------------------------\n";
+            RegisterUserAddress registerAddress = new RegisterUserAddress(holder, addressTitle, AuctionHouse);
+            registerAddress.Display();
         }
     }
 }

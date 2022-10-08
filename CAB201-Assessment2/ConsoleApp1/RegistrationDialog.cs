@@ -10,7 +10,6 @@ namespace ConsoleApp1
 	{
 		public RegistrationDialog(string title, AuctionHouse house) : base(title, house)
 		{
-
 		}
 
 		public override void Display()
@@ -52,7 +51,6 @@ namespace ConsoleApp1
 
 			Console.WriteLine($"\nClient {name}({email}) has successfully registered at the Auction House.");
 			AuctionHouse.RegisterAccountHolder(email, name, pass);
-
 		}
 	}
 }

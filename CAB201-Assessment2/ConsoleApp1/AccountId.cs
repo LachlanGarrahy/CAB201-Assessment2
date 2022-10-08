@@ -8,13 +8,11 @@ namespace ConsoleApp1
 {
     public class AccountId
     {
-        const char Separator = '-';
-
-        public AccountId(string branchId)
+        public AccountId(string email)
         {
-            if (IsValid(branchId))
+            if (IsValid(email))
             {
-                Email = branchId;
+                Email = email;
             }
             else
             {
@@ -40,8 +38,6 @@ namespace ConsoleApp1
 
             if (!string.IsNullOrWhiteSpace(s))
             {
-                string[] parts = s.Split(Separator);
-
                 if (IsValid(s))
                 {
 
