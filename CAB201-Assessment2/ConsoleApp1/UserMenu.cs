@@ -16,7 +16,6 @@ namespace ConsoleApp1
             VIEW_PURCHASES = "View My Purchased Items",
             LOG_OFF = "Log off";
 
-
         const uint ADVERTISE_OPT = 1,
             MY_PRODUCTS_OPT = 2,
             SEARCH_OPT = 3,
@@ -24,17 +23,18 @@ namespace ConsoleApp1
             VIEW_PURCHASES_OPT = 5,
             LOG_OFF_OPT = 6;
 
-        public UserMenu(string title, AuctionHouse house) : base(title, house)
+        private AccountHolder holder;
+
+        public UserMenu(AccountHolder holder, string title, AuctionHouse house) : base(title, house)
         {
+            this.holder = holder;
         }
 
         public override void Display()
         {
-            WriteLine($"\n{Title}");
-
-
             while (true)
             {
+                WriteLine($"\n{Title}");
                 uint option = Util.ReadUint(ADVERTISE, MY_PRODUCTS, SEARCH, VIEW_BIDS, VIEW_PURCHASES, LOG_OFF);
 
                 if (option == LOG_OFF_OPT)
@@ -51,13 +51,13 @@ namespace ConsoleApp1
             switch (option)
             {
                 case ADVERTISE_OPT:
-                    WriteLine("advertise");
+                    Advertise();
                     break;
                 case MY_PRODUCTS_OPT:
-                    WriteLine("my products");
+                    CurrentUserProducts();
                     break;
                 case SEARCH_OPT:
-                    WriteLine("search");
+                    SearchProducts();
                     break;
                 case VIEW_BIDS_OPT:
                     WriteLine("my bids");
@@ -69,6 +69,40 @@ namespace ConsoleApp1
                     // do nothing.
                     break;
             }
+        }
+
+        private string addDashes(string title)
+        {
+            int length = title.Length;
+            for (int i = 1; i < length; i++)
+            {
+                title += "-";
+            }
+            title += "\n";
+            return title;
+        }
+
+        private void Advertise()
+        {
+            string title = $"Product Advertisement for {holder.Name}({holder.AccountId})\n";
+            title = addDashes(title);
+            AdvertiseProductDialog advertiseDialog = new AdvertiseProductDialog(holder, title, AuctionHouse);
+            advertiseDialog.Display();
+        }
+
+        private void CurrentUserProducts()
+        {
+            string title = $"Product List for {holder.Name}({holder.AccountId})\n";
+            title = addDashes(title);
+            UserProductsDialog userProductDialog = new UserProductsDialog(holder, title, AuctionHouse);
+            userProductDialog.Display();
+        }
+        private void SearchProducts()
+        {
+            string title = $"Product Search for {holder.Name}({holder.AccountId})\n";
+            title = addDashes(title);
+            SearchProducts searchProductDialog = new SearchProducts(holder, title, AuctionHouse);
+            searchProductDialog.Display();
         }
     }
 }

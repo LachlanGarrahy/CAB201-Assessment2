@@ -26,7 +26,7 @@ namespace ConsoleApp1
             if (holder != null)
             {
                 if (!AuctionHouse.HasAddress(holder.AccountId)) initialiseAccountAddress(holder);
-                UserMenu menu = new UserMenu("Client Sign In", AuctionHouse);
+                UserMenu menu = new UserMenu(holder, "Client Menu\n-----------", AuctionHouse);
                 menu.Display();
             }
 

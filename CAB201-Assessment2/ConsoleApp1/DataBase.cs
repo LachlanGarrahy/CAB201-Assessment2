@@ -34,6 +34,14 @@ namespace ConsoleApp1
 
             writer.Write($"Address,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]},{fields[7]}\n");
         }
+        public static void SaveProductsToDb(string accountHolder)
+        {
+            string[] fields = accountHolder.Split(DELIM);
+
+            using StreamWriter writer = File.AppendText(fileName);
+
+            writer.Write($"Product,{fields[0]},{fields[1]},{fields[2]},{fields[3]}\n");
+        }
 
         public void InitialiseDb(AuctionHouse house)
         {
@@ -57,6 +65,7 @@ namespace ConsoleApp1
 
                 if (fields[0] == "Client") createClients(fields, house);
                 else if (fields[0] == "Address") createAddresses(fields, house);
+                else if (fields[0] == "Product") createProducts(fields, house);
             }
         }
         private void createClients(string[] fields, AuctionHouse house)
@@ -77,6 +86,14 @@ namespace ConsoleApp1
             string state = fields[7];
             uint postcode = uint.Parse(fields[8]);
             house.RegisterUserAddress(currentId, unitNo, stNo, stName, suffix, city, state, postcode);
+        }
+        private void createProducts(string[] fields, AuctionHouse house)
+        {
+            AccountId.TryParse(fields[1], out AccountId currentId);
+            string name = fields[2];
+            string description = fields[3];
+            string price = fields[4];
+            house.RegisterProduct(currentId, name, description, price);
         }
     }
 }

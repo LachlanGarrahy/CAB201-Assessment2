@@ -36,6 +36,7 @@ namespace ConsoleApp1
                 {
                     AuctionHouse.SaveAccountHolders();
                     AuctionHouse.SaveUserAddresses();
+                    AuctionHouse.SaveProducts();
                     WriteLine(CLOSING_TEXT);
                     break;
                 }

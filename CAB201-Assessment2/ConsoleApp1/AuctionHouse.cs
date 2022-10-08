@@ -14,6 +14,7 @@ namespace ConsoleApp1
     {
         private List<AccountHolder> accountHolders = new List<AccountHolder>();
         private List<UserAddress> userAddresses = new List<UserAddress>();
+        private List<Product> products = new List<Product>();
 
         public AuctionHouse()
         {
@@ -28,6 +29,10 @@ namespace ConsoleApp1
         {
             userAddresses.Add(new UserAddress(accountId, unit, stNo, stName, suffix, city, state, postcode));
         }
+        public void RegisterProduct(AccountId accountId, string productName, string productDesc, string price)
+        {
+            products.Add(new Product(accountId, productName, productDesc, price));
+        }
 
         public void SaveAccountHolders()
         {
@@ -36,6 +41,10 @@ namespace ConsoleApp1
         public void SaveUserAddresses()
         {
             foreach (var userAddress in userAddresses) DataBase.SaveUserAddressesToDb(userAddress.ToString());
+        }
+        public void SaveProducts()
+        {
+            foreach (var product in products) DataBase.SaveProductsToDb(product.ToString());
         }
 
         public bool HasAccountHolder(AccountId accountId)
@@ -66,6 +75,37 @@ namespace ConsoleApp1
             }
 
             return false;
+        }
+
+        public List<Product> GetUserProducts(AccountId accountId)
+        {
+            List<Product> userProducts = new List<Product>();
+
+            foreach (Product product in products)
+            {
+                if (product.AccountIdMatches(accountId))
+                {
+                    userProducts.Add(product);
+                }
+            }
+            return userProducts;
+        }
+        public List<Product> GetSearchProducts(string searchTerm)
+        {
+            List<Product> userProducts = new List<Product>();
+
+            foreach (Product product in products)
+            {
+                if (product.ProductNameMatches(searchTerm))
+                {
+                    userProducts.Add(product);
+                }
+            }
+            return userProducts;
+        }
+        public List<Product> GetAllProducts()
+        {
+            return products;
         }
     }
 }
