@@ -9,7 +9,17 @@ namespace ConsoleApp1
 {
     public class MainMenu : Dialog
     {
-        const int REGISTER = 1, SIGNIN = 2, EXIT = 3;
+        const string REGISTER = "Register",
+            SIGNIN = "Sign In",
+            EXIT = "Exit";
+
+        const string CLOSING_TEXT = "+--------------------------------------------------+\n" +
+            "| Good bye, thank you for using the Auction House! |\n" +
+            "+--------------------------------------------------+";
+
+        const uint REGISTER_OPT = 1,
+            SIGNIN_OPT = 2,
+            EXIT_OPT = 3;
 
         public MainMenu(string title, AuctionHouse house) : base(title, house)
         {
@@ -17,42 +27,39 @@ namespace ConsoleApp1
 
         public override void Display()
         {
+            WriteLine($"\n{Title}");
+
+
             while (true)
             {
-                WriteLine("Please choose an option from the following list:");
-                WriteLine("({0}) - Register", REGISTER);
-                WriteLine("({0}) - Sign In", SIGNIN);
-                WriteLine("({0}) - Exit", EXIT);
+                uint option = Util.ReadUint(REGISTER, SIGNIN, EXIT);
 
-                uint option = Util.ReadUint("Please enter an integer between 1 and 3");
-
-                if (option >= 1 && option < EXIT)
-                {
-                    Process(option);
-                }
-                else if (option == EXIT)
+                if (option == EXIT_OPT)
                 {
                     AuctionHouse.SaveAccountHolders();
+                    WriteLine(CLOSING_TEXT);
                     break;
                 }
-                else
-                {
-                    WriteLine("Option must be greater than or equal to 1 and less than or equal to {0}.", EXIT);
-                }
+
+                Process(option);
             }
         }
 
         private void Process(uint option)
         {
-            if (option == REGISTER)
+            switch (option)
             {
-                RegistrationDialog dlg = new RegistrationDialog("Register New Client", AuctionHouse);
-                dlg.Display();
-            }
-            else if (option == SIGNIN)
-            {
-                SignInDialog dlg = new SignInDialog("Client Sign In", AuctionHouse);
-                dlg.Display();
+                case REGISTER_OPT:
+                    RegistrationDialog reg = new RegistrationDialog("Registration\n------------", AuctionHouse);
+                    reg.Display();
+                    break;
+                case SIGNIN_OPT:
+                    SignInDialog sign = new SignInDialog("Sign In\n-------", AuctionHouse);
+                    sign.Display();
+                    break;
+                default:
+                    // do nothing.
+                    break;
             }
         }
     }

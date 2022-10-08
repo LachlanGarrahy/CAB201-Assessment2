@@ -15,15 +15,18 @@ namespace ConsoleApp1
 
         public override void Display()
         {
-            AccountId acct = Util.ReadAccountId("Please enter the account email");
+            Console.WriteLine($"\n{Title}");
 
-            AccountPass acctPass = Util.ReadAccountPass("Please enter the account password");
+            AccountId acct = Util.ReadAccountId("\nPlease enter the account email");
+
+            AccountPass acctPass = Util.ReadAccountPass("\nPlease enter the account password");
 
             AccountHolder holder = AuctionHouse.GetAccountHolder(acct, acctPass);
 
             if (holder != null)
             {
-
+                UserMenu menu = new UserMenu("Client Sign In", AuctionHouse);
+                menu.Display();
                 Console.WriteLine("Congratulations, you have successfully signed in!!!");
             }
 
