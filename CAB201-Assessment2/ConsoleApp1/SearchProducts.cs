@@ -10,9 +10,12 @@ namespace ConsoleApp1
     {
         private AccountHolder holder;
 
-        private List<Product> products = new List<Product>();
+        private List<ProductListing> products = new List<ProductListing>();
+        private ProductBid bid;
         private static string itemDialog = "Item #\tProduct name\tDescription\tList Price\tBidder name\tBidder email\tBid amt";
         private string searchTerm;
+        private string bidderName;
+        private string bidData = "-\t-\t-";
         public SearchProducts(AccountHolder holder, string title, AuctionHouse house) : base(title, house)
         {
             this.holder = holder;
@@ -22,28 +25,12 @@ namespace ConsoleApp1
         {
             Console.WriteLine($"\n{Title}");
 
-            searchTerm = getSearchTerm();
+            searchTerm = Util.getSearchTerm();
 
             if (searchTerm == "ALL") products = AuctionHouse.GetAllProducts();
             else products = AuctionHouse.GetSearchProducts(searchTerm);
 
             writeProducts();
-        }
-
-        private string getSearchTerm()
-        {
-            while (true)
-            {
-                Console.WriteLine("Please supply a search phrase (ALL to see all products)");
-
-                searchTerm = Console.ReadLine();
-
-                if (!string.IsNullOrWhiteSpace(searchTerm))
-                {
-                    break;
-                }
-            }
-            return searchTerm;
         }
 
         private void writeProducts()
@@ -52,8 +39,20 @@ namespace ConsoleApp1
             Console.WriteLine(itemDialog);
             for (int i = 0; i < products.Count; i++)
             {
-                Console.WriteLine($"{i+1}\t{products[i].Name}\t{products[i].Description}\t{products[i].Price}");
+                bid = getBid(products[i].Name);
+                if (bid != null)
+                {
+                    bidderName = AuctionHouse.GetAccountId(bid.BidderAccountId).Name;
+                    bidData = $"{bidderName}\t{bid.BidderAccountId}\t{bid.BidPrice}";
+                }
+
+                Console.WriteLine($"{i + 1}\t{products[i].Name}\t{products[i].Description}\t{products[i].Price}\t{bidData}");
             }
+        }
+
+        private ProductBid getBid(string name)
+        {
+            return AuctionHouse.GetProductBids(name);
         }
     }
 }

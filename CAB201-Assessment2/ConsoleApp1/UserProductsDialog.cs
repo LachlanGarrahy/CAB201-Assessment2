@@ -11,7 +11,7 @@ namespace ConsoleApp1
 
         private AccountHolder holder;
 
-        private List<Product> products = new List<Product>();
+        private List<ProductListing> products = new List<ProductListing>();
         private static string itemDialog = "Item #\tProduct name\tDescription\tList Price\tBidder name\tBidder email\tBid amt";
         public UserProductsDialog(AccountHolder holder, string title, AuctionHouse house) : base(title, house)
         {

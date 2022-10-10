@@ -22,6 +22,7 @@ namespace ConsoleApp1
 			{
 				Console.WriteLine("\nPlease enter your name");
 
+				Console.Write("> ");
 				name = Console.ReadLine();
 
 				if (!string.IsNullOrWhiteSpace(name))

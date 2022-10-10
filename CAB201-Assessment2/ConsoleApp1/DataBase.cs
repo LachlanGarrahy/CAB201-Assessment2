@@ -26,21 +26,29 @@ namespace ConsoleApp1
 
             writer.Write($"Client,{fields[0]},{fields[1]},{fields[2]}\n");
         }
-        public static void SaveUserAddressesToDb(string accountHolder)
+        public static void SaveUserAddressesToDb(string address)
         {
-            string[] fields = accountHolder.Split(DELIM);
+            string[] fields = address.Split(DELIM);
 
             using StreamWriter writer = File.AppendText(fileName);
 
             writer.Write($"Address,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]},{fields[7]}\n");
         }
-        public static void SaveProductsToDb(string accountHolder)
+        public static void SaveProductsToDb(string products)
         {
-            string[] fields = accountHolder.Split(DELIM);
+            string[] fields = products.Split(DELIM);
 
             using StreamWriter writer = File.AppendText(fileName);
 
             writer.Write($"Product,{fields[0]},{fields[1]},{fields[2]},{fields[3]}\n");
+        }
+        public static void SaveBidsToDb(string bids)
+        {
+            string[] fields = bids.Split(DELIM);
+
+            using StreamWriter writer = File.AppendText(fileName);
+
+            writer.Write($"Bid,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]}\n");
         }
 
         public void InitialiseDb(AuctionHouse house)
@@ -94,6 +102,17 @@ namespace ConsoleApp1
             string description = fields[3];
             string price = fields[4];
             house.RegisterProduct(currentId, name, description, price);
+        }
+        private void createBids(string[] fields, AuctionHouse house)
+        {
+            AccountId.TryParse(fields[1], out AccountId currentId);
+            string name = fields[2];
+            string description = fields[3];
+            string price = fields[4];
+            AccountId.TryParse(fields[5], out AccountId bidderId);
+            string bidPrice = fields[6];
+            string delivery = fields[7];
+            house.CreateBid(currentId, name, description, price, bidderId, bidPrice, delivery);
         }
     }
 }

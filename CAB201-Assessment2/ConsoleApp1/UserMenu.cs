@@ -35,6 +35,7 @@ namespace ConsoleApp1
             while (true)
             {
                 WriteLine($"\n{Title}");
+
                 uint option = Util.ReadUint(ADVERTISE, MY_PRODUCTS, SEARCH, VIEW_BIDS, VIEW_PURCHASES, LOG_OFF);
 
                 if (option == LOG_OFF_OPT)

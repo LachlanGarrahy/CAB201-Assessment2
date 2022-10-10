@@ -14,7 +14,8 @@ namespace ConsoleApp1
     {
         private List<AccountHolder> accountHolders = new List<AccountHolder>();
         private List<UserAddress> userAddresses = new List<UserAddress>();
-        private List<Product> products = new List<Product>();
+        private List<ProductListing> products = new List<ProductListing>();
+        private List<ProductBid> bids = new List<ProductBid>();
 
         public AuctionHouse()
         {
@@ -31,7 +32,11 @@ namespace ConsoleApp1
         }
         public void RegisterProduct(AccountId accountId, string productName, string productDesc, string price)
         {
-            products.Add(new Product(accountId, productName, productDesc, price));
+            products.Add(new ProductListing(accountId, productName, productDesc, price));
+        }
+        public void CreateBid(AccountId accountId, string productName, string productDesc, string price, AccountId bidderId, string bidPrice, string delivery)
+        {
+            bids.Add(new ProductBid(accountId, productName, productDesc, price, bidderId, bidPrice, delivery));
         }
 
         public void SaveAccountHolders()
@@ -45,6 +50,10 @@ namespace ConsoleApp1
         public void SaveProducts()
         {
             foreach (var product in products) DataBase.SaveProductsToDb(product.ToString());
+        }
+        public void SaveBids()
+        {
+            foreach (var bid in bids) DataBase.SaveBidsToDb(bid.ToString());
         }
 
         public bool HasAccountHolder(AccountId accountId)
@@ -67,6 +76,16 @@ namespace ConsoleApp1
             return null;
         }
 
+        public AccountHolder GetAccountId(AccountId accountId)
+        {
+            foreach (AccountHolder accountHolder in accountHolders)
+            {
+                if (accountHolder.AccountIdMatches(accountId)) return accountHolder;
+            }
+
+            return null;
+        }
+
         public bool HasAddress(AccountId accountId)
         {
             foreach (UserAddress userAddress in userAddresses)
@@ -77,11 +96,11 @@ namespace ConsoleApp1
             return false;
         }
 
-        public List<Product> GetUserProducts(AccountId accountId)
+        public List<ProductListing> GetUserProducts(AccountId accountId)
         {
-            List<Product> userProducts = new List<Product>();
+            List<ProductListing> userProducts = new List<ProductListing>();
 
-            foreach (Product product in products)
+            foreach (ProductListing product in products)
             {
                 if (product.AccountIdMatches(accountId))
                 {
@@ -90,11 +109,11 @@ namespace ConsoleApp1
             }
             return userProducts;
         }
-        public List<Product> GetSearchProducts(string searchTerm)
+        public List<ProductListing> GetSearchProducts(string searchTerm)
         {
-            List<Product> userProducts = new List<Product>();
+            List<ProductListing> userProducts = new List<ProductListing>();
 
-            foreach (Product product in products)
+            foreach (ProductListing product in products)
             {
                 if (product.ProductNameMatches(searchTerm))
                 {
@@ -103,9 +122,19 @@ namespace ConsoleApp1
             }
             return userProducts;
         }
-        public List<Product> GetAllProducts()
+        public List<ProductListing> GetAllProducts()
         {
             return products;
+        }
+
+        public ProductBid GetProductBids(string name)
+        {
+            foreach (ProductBid bid in bids)
+            {
+                if (bid.ProductNameMatches(name)) return bid;
+            }
+
+            return null;
         }
     }
 }

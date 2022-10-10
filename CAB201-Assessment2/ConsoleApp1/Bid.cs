@@ -6,53 +6,34 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Bid
+    public class Bid : Product
     {
-        public Bid(string name, string bidderName, AccountId accountId, string price)
+        public AccountId BidderAccountId { get; }
+        public string BidPrice { get; }
+        public string Delivery { get; }
+        public Bid(AccountId accountId, string name, string desc, string price, AccountId bidderAccountId, string bidPrice, string delivery) : base(accountId, name, desc, price)
         {
-            if (IsValid(accountId, name, bidderName, price))
+            if (IsValid(bidderAccountId, bidPrice))
             {
-                AccountId = accountId;
-                Name = name;
-                BidderName = bidderName;
-                Price = price;
+                BidderAccountId = bidderAccountId;
+                BidPrice = bidPrice;
+                Delivery = delivery;
             }
             else
             {
-                throw new ArgumentException("Bid!");
+                throw new ArgumentException("Product!");
             }
         }
-
-        public AccountId AccountId
-        {
-            get;
-        }
-        public string Name
-        {
-            get;
-        }
-
-        public string BidderName
-        {
-            get;
-        }
-        public string Price
-        {
-            get;
-        }
-
-        public static bool IsValid(AccountId accountId, string name, string bidderName, string price)
+        public static bool IsValid(AccountId BidderAccountId, string BidPrice)
         {
             return true;
         }
 
         public override string ToString()
         {
-            return $"{Name},{BidderName},{AccountId},{Price}";
+            return $"{Name},{BidderAccountId},{BidPrice},{Delivery}";
         }
 
-        public bool AccountIdMatches(AccountId accountId) { return this.AccountId.Equals(accountId); }
-
-        public bool ProductNameMatches(string name) { return this.Name.Equals(name); }
+        public bool BidderIdMatches(AccountId accountId) { return this.BidderAccountId.Equals(accountId); }
     }
 }

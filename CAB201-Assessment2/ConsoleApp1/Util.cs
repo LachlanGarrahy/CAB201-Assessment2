@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Console;
 
 namespace ConsoleApp1
 {
@@ -18,6 +19,7 @@ namespace ConsoleApp1
 			while (true)
 			{
 				Console.WriteLine("Please enter a value between 1 and {0}", options.Length);
+				Write("> ");
 				string userInput = Console.ReadLine() ?? String.Empty;
 				uint result;
 
@@ -38,6 +40,7 @@ namespace ConsoleApp1
 			{
 				Console.WriteLine(prompt);
 
+				Write("> ");
 				string s = Console.ReadLine();
 
 				if (AccountId.TryParse(s, out acct))
@@ -56,6 +59,7 @@ namespace ConsoleApp1
 			{
 				Console.WriteLine(prompt);
 
+				Write("> ");
 				string s = Console.ReadLine();
 
 				if (AccountPass.TryParse(s, out pass))
@@ -65,6 +69,24 @@ namespace ConsoleApp1
 			}
 
 			return pass;
+		}
+
+		public static string getSearchTerm()
+		{
+			string searchTerm;
+			while (true)
+			{
+				Console.WriteLine("Please supply a search phrase (ALL to see all products)");
+
+				Write("> ");
+				searchTerm = Console.ReadLine();
+
+				if (!string.IsNullOrWhiteSpace(searchTerm))
+				{
+					break;
+				}
+			}
+			return searchTerm;
 		}
 	}
 }
