@@ -31,7 +31,7 @@ namespace ConsoleApp1
 
         public override string ToString()
         {
-            return $"{Name},{BidderAccountId},{BidPrice},{Delivery}";
+            return $"{AccountId},{Name},{Description},{Price},{BidderAccountId},{BidPrice},{Delivery}";
         }
 
         public bool BidderIdMatches(AccountId accountId) { return this.BidderAccountId.Equals(accountId); }

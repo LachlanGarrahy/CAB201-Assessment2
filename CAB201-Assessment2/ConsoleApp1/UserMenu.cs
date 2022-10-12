@@ -72,21 +72,12 @@ namespace ConsoleApp1
             }
         }
 
-        private string addDashes(string title)
-        {
-            int length = title.Length;
-            for (int i = 1; i < length; i++)
-            {
-                title += "-";
-            }
-            title += "\n";
-            return title;
-        }
+        
 
         private void Advertise()
         {
             string title = $"Product Advertisement for {holder.Name}({holder.AccountId})\n";
-            title = addDashes(title);
+            title = Util.addDashes(title);
             AdvertiseProductDialog advertiseDialog = new AdvertiseProductDialog(holder, title, AuctionHouse);
             advertiseDialog.Display();
         }
@@ -94,16 +85,18 @@ namespace ConsoleApp1
         private void CurrentUserProducts()
         {
             string title = $"Product List for {holder.Name}({holder.AccountId})\n";
-            title = addDashes(title);
+            title = Util.addDashes(title);
             UserProductsDialog userProductDialog = new UserProductsDialog(holder, title, AuctionHouse);
             userProductDialog.Display();
         }
         private void SearchProducts()
         {
             string title = $"Product Search for {holder.Name}({holder.AccountId})\n";
-            title = addDashes(title);
-            SearchProducts searchProductDialog = new SearchProducts(holder, title, AuctionHouse);
+            title = Util.addDashes(title);
+            SearchProducts searchProductDialog = new SearchProducts(title, AuctionHouse);
             searchProductDialog.Display();
+            MakeBid makeBidDialog = new MakeBid(holder, AuctionHouse, searchProductDialog.getCurrentProductList());
+            makeBidDialog.Display();
         }
     }
 }

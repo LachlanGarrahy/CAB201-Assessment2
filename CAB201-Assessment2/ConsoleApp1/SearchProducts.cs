@@ -8,24 +8,23 @@ namespace ConsoleApp1
 {
     internal class SearchProducts: Dialog
     {
-        private AccountHolder holder;
-
         private List<ProductListing> products = new List<ProductListing>();
         private ProductBid bid;
-        private static string itemDialog = "Item #\tProduct name\tDescription\tList Price\tBidder name\tBidder email\tBid amt";
+        private const string itemDialog = "Item #\tProduct name\tDescription\tList Price\tBidder name\tBidder email\tBid amt";
+        private const string searchPrompt = "Please supply a search phrase (ALL to see all products)";
         private string searchTerm;
         private string bidderName;
-        private string bidData = "-\t-\t-";
-        public SearchProducts(AccountHolder holder, string title, AuctionHouse house) : base(title, house)
+        private const string bidDataNull = "-\t-\t-";
+        private string bidData;
+        public SearchProducts(string title, AuctionHouse house) : base(title, house)
         {
-            this.holder = holder;
         }
 
         public override void Display()
         {
             Console.WriteLine($"\n{Title}");
 
-            searchTerm = Util.getSearchTerm();
+            searchTerm = Util.getString(searchPrompt);
 
             if (searchTerm == "ALL") products = AuctionHouse.GetAllProducts();
             else products = AuctionHouse.GetSearchProducts(searchTerm);
@@ -45,6 +44,10 @@ namespace ConsoleApp1
                     bidderName = AuctionHouse.GetAccountId(bid.BidderAccountId).Name;
                     bidData = $"{bidderName}\t{bid.BidderAccountId}\t{bid.BidPrice}";
                 }
+                else
+                {
+                    bidData = bidDataNull;
+                }
 
                 Console.WriteLine($"{i + 1}\t{products[i].Name}\t{products[i].Description}\t{products[i].Price}\t{bidData}");
             }
@@ -53,6 +56,11 @@ namespace ConsoleApp1
         private ProductBid getBid(string name)
         {
             return AuctionHouse.GetProductBids(name);
+        }
+
+        public List<ProductListing> getCurrentProductList()
+        {
+            return products;
         }
     }
 }

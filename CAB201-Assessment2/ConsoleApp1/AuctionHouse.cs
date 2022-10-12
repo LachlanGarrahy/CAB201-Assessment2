@@ -39,6 +39,13 @@ namespace ConsoleApp1
             bids.Add(new ProductBid(accountId, productName, productDesc, price, bidderId, bidPrice, delivery));
         }
 
+        public void UpdateBid(AccountId accountId, string productName, string productDesc, string price, AccountId bidderId, string bidPrice, string delivery)
+        {
+            ProductBid currentBid = GetProductBids(productName);
+            int index = bids.IndexOf(currentBid);
+            bids[index] = (new ProductBid(accountId, productName, productDesc, price, bidderId, bidPrice, delivery));
+        }
+
         public void SaveAccountHolders()
         {
             foreach (var accountHolder in accountHolders) DataBase.SaveAccountHoldersToDb(accountHolder.ToString());

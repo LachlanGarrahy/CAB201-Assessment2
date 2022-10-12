@@ -34,6 +34,5 @@ namespace ConsoleApp1
                 Console.WriteLine($"{i+1}\t{products[i].Name}\t{products[i].Description}\t{products[i].Price}");
             }
         }
-        
     }
 }

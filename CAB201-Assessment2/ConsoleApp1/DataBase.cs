@@ -58,7 +58,7 @@ namespace ConsoleApp1
                 using StreamReader reader = new StreamReader(fileName);
 
                 checkLines(reader, house);
-                
+
                 reader.Close();
                 File.Delete(fileName);
             }
@@ -74,6 +74,7 @@ namespace ConsoleApp1
                 if (fields[0] == "Client") createClients(fields, house);
                 else if (fields[0] == "Address") createAddresses(fields, house);
                 else if (fields[0] == "Product") createProducts(fields, house);
+                else if (fields[0] == "Bid") createBids(fields, house);
             }
         }
         private void createClients(string[] fields, AuctionHouse house)

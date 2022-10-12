@@ -18,7 +18,7 @@ namespace ConsoleApp1
 
 			while (true)
 			{
-				Console.WriteLine("Please enter a value between 1 and {0}", options.Length);
+				Console.WriteLine("\nPlease enter a value between 1 and {0}", options.Length);
 				Write("> ");
 				string userInput = Console.ReadLine() ?? String.Empty;
 				uint result;
@@ -71,12 +71,12 @@ namespace ConsoleApp1
 			return pass;
 		}
 
-		public static string getSearchTerm()
+		public static string getString(string prompt)
 		{
 			string searchTerm;
 			while (true)
 			{
-				Console.WriteLine("Please supply a search phrase (ALL to see all products)");
+				Console.WriteLine(prompt);
 
 				Write("> ");
 				searchTerm = Console.ReadLine();
@@ -87,6 +87,33 @@ namespace ConsoleApp1
 				}
 			}
 			return searchTerm;
+		}
+
+		public static uint getNumber(string prompt)
+        {
+			uint number;
+			while (true)
+			{
+				Console.WriteLine(prompt);
+				Write("> ");
+
+				if (uint.TryParse(Console.ReadLine(), out number))
+				{
+					break;
+				}
+			}
+			return number;
+		}
+
+		public static string addDashes(string title)
+		{
+			int length = title.Length;
+			for (int i = 1; i < length; i++)
+			{
+				title += "-";
+			}
+			title += "\n";
+			return title;
 		}
 	}
 }

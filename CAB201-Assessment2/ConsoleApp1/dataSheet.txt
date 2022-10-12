@@ -1,5 +1,0 @@
-Client,test,test,test
-Client,t,t,t
-Address,t,0,1,1,1,1,ACT,1000
-Product,t,t,t,t
-Product,t,p,p,p
