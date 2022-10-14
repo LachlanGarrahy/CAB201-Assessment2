@@ -1,0 +1,5 @@
+Client,t,t,t
+Address,t,1,1,1,1,1,ACT,1000
+Product,t,t,t,t
+Bid,t,t,t,t,t,$1.00,home
+Delivery,t,1,1,1,1,1,ACT,1001

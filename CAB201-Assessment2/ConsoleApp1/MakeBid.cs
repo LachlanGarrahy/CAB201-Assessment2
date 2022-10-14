@@ -100,6 +100,32 @@ namespace ConsoleApp1
         private void homeDelivery()
         {
             deliveryOption = "home";
+            bool registered = getRegistered();
+            if (registered)
+            {
+                UserAddress address = house.GetUserAddress(holder.AccountId);
+                house.RegisterDeliveryAddress(item.Name, address.UnitNo, address.StNo, address.StName, address.Suffix, address.City, address.State, address.Postcode);
+
+                if (address.UnitNo == 0) Console.WriteLine($"\nThank you for your bid. If successful, the item will be provided via delivery to {address.StNo} {address.StName} {address.Suffix}, {address.City} {address.State} {address.Postcode}");
+                else Console.WriteLine($"\nAddress has been updated to {address.UnitNo}/{address.StNo} {address.tName} {suffix}, {city} {state} {postcode}");
+            }
+            else
+            {
+                AddressDialog registerAddress = new AddressDialog(holder, house);
+                registerAddress.createDeliveryAddress(item.Name);
+            }
+            Console.WriteLine("Thank you for your bid. If successful, the item will be provided via delivery to ")
+            if (unitNo == 0) Console.WriteLine($"\nAddress has been updated to {stNo} {stName} {suffix}, {city} {state} {postcode}");
+            else Console.WriteLine($"\nAddress has been updated to {unitNo}/{stNo} {stName} {suffix}, {city} {state} {postcode}");
+        }
+
+        private bool getRegistered()
+        {
+            Console.WriteLine("Would you like to use your registered address?");
+            Console.Write("> ");
+            string answer = Console.ReadLine();
+            if (answer == "yes") return true;
+            return false;
         }
 
         private Product getProductInfo(int item)

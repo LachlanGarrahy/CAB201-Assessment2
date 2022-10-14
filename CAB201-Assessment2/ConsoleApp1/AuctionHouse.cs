@@ -16,6 +16,8 @@ namespace ConsoleApp1
         private List<UserAddress> userAddresses = new List<UserAddress>();
         private List<ProductListing> products = new List<ProductListing>();
         private List<ProductBid> bids = new List<ProductBid>();
+        private List<DeliveryAddress> deliveryAddresses = new List<DeliveryAddress>();
+
 
         public AuctionHouse()
         {
@@ -38,6 +40,10 @@ namespace ConsoleApp1
         {
             bids.Add(new ProductBid(accountId, productName, productDesc, price, bidderId, bidPrice, delivery));
         }
+        public void RegisterDeliveryAddress(string name, uint unit, uint stNo, string stName, string suffix, string city, string state, uint postcode)
+        {
+            deliveryAddresses.Add(new DeliveryAddress(name, unit, stNo, stName, suffix, city, state, postcode));
+        }
 
         public void UpdateBid(AccountId accountId, string productName, string productDesc, string price, AccountId bidderId, string bidPrice, string delivery)
         {
@@ -46,22 +52,15 @@ namespace ConsoleApp1
             bids[index] = (new ProductBid(accountId, productName, productDesc, price, bidderId, bidPrice, delivery));
         }
 
-        public void SaveAccountHolders()
+        public void saveData()
         {
             foreach (var accountHolder in accountHolders) DataBase.SaveAccountHoldersToDb(accountHolder.ToString());
-        }
-        public void SaveUserAddresses()
-        {
             foreach (var userAddress in userAddresses) DataBase.SaveUserAddressesToDb(userAddress.ToString());
-        }
-        public void SaveProducts()
-        {
             foreach (var product in products) DataBase.SaveProductsToDb(product.ToString());
-        }
-        public void SaveBids()
-        {
             foreach (var bid in bids) DataBase.SaveBidsToDb(bid.ToString());
+            foreach (var deliveryAddress in deliveryAddresses) DataBase.SaveDeliveryAddressesToDb(deliveryAddress.ToString());
         }
+        
 
         public bool HasAccountHolder(AccountId accountId)
         {
@@ -101,6 +100,16 @@ namespace ConsoleApp1
             }
 
             return false;
+        }
+
+        public UserAddress GetUserAddress(AccountId accountId)
+        {
+            foreach (UserAddress userAddress in userAddresses)
+            {
+                if (userAddress.AccountIdMatches(accountId)) return userAddress;
+            }
+
+            return null;
         }
 
         public List<ProductListing> GetUserProducts(AccountId accountId)

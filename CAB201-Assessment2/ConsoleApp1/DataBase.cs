@@ -26,9 +26,9 @@ namespace ConsoleApp1
 
             writer.Write($"Client,{fields[0]},{fields[1]},{fields[2]}\n");
         }
-        public static void SaveUserAddressesToDb(string address)
+        public static void SaveUserAddressesToDb(string addresses)
         {
-            string[] fields = address.Split(DELIM);
+            string[] fields = addresses.Split(DELIM);
 
             using StreamWriter writer = File.AppendText(fileName);
 
@@ -49,6 +49,14 @@ namespace ConsoleApp1
             using StreamWriter writer = File.AppendText(fileName);
 
             writer.Write($"Bid,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]}\n");
+        }
+        public static void SaveDeliveryAddressesToDb(string addresses)
+        {
+            string[] fields = addresses.Split(DELIM);
+
+            using StreamWriter writer = File.AppendText(fileName);
+
+            writer.Write($"Delivery,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]},{fields[7]}\n");
         }
 
         public void InitialiseDb(AuctionHouse house)

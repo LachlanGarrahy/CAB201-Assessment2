@@ -34,10 +34,7 @@ namespace ConsoleApp1
 
                 if (option == EXIT_OPT)
                 {
-                    AuctionHouse.SaveAccountHolders();
-                    AuctionHouse.SaveUserAddresses();
-                    AuctionHouse.SaveProducts();
-                    AuctionHouse.SaveBids();
+                    AuctionHouse.saveData();
                     WriteLine(CLOSING_TEXT);
                     break;
                 }

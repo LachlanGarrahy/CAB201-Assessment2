@@ -41,8 +41,9 @@ namespace ConsoleApp1
         {
             string addressTitle = $"Personal Details for {holder.Name}({holder.AccountId})\n" +
                        "----------------------------------------------------------\n";
-            RegisterUserAddress registerAddress = new RegisterUserAddress(holder, addressTitle, AuctionHouse);
-            registerAddress.Display();
+            AddressDialog registerAddress = new AddressDialog(holder, AuctionHouse);
+            registerAddress.createUserAddress(addressTitle);
+
         }
     }
 }
