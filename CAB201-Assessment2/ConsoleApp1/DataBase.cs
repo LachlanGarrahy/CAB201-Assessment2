@@ -58,6 +58,14 @@ namespace ConsoleApp1
 
             writer.Write($"Delivery,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]},{fields[7]}\n");
         }
+        public static void SaveTimesToDb(string times)
+        {
+            string[] fields = times.Split(DELIM);
+
+            using StreamWriter writer = File.AppendText(fileName);
+
+            writer.Write($"ClickCol,{fields[0]},{fields[1]},{fields[2]}\n");
+        }
 
         public void InitialiseDb(AuctionHouse house)
         {
@@ -83,6 +91,8 @@ namespace ConsoleApp1
                 else if (fields[0] == "Address") createAddresses(fields, house);
                 else if (fields[0] == "Product") createProducts(fields, house);
                 else if (fields[0] == "Bid") createBids(fields, house);
+                else if (fields[0] == "Delivery") createDeliveries(fields, house);
+                else if (fields[0] == "ClickCol") createTimes(fields, house);
             }
         }
         private void createClients(string[] fields, AuctionHouse house)
@@ -122,6 +132,25 @@ namespace ConsoleApp1
             string bidPrice = fields[6];
             string delivery = fields[7];
             house.CreateBid(currentId, name, description, price, bidderId, bidPrice, delivery);
+        }
+        private void createDeliveries(string[] fields, AuctionHouse house)
+        {
+            string name = fields[2];
+            uint unitNo = uint.Parse(fields[2]);
+            uint stNo = uint.Parse(fields[3]);
+            string stName = fields[4];
+            string suffix = fields[5];
+            string city = fields[6];
+            string state = fields[7];
+            uint postcode = uint.Parse(fields[8]);
+            house.RegisterDeliveryAddress(name, unitNo, stNo, stName, suffix, city, state, postcode);
+        }
+        private void createTimes(string[] fields, AuctionHouse house)
+        {
+            string name = fields[1];
+            DateTime startTime = DateTime.Parse(fields[2]);
+            DateTime endTime = DateTime.Parse(fields[3]);
+            house.RegisterClickColTime(name, startTime, endTime);
         }
     }
 }

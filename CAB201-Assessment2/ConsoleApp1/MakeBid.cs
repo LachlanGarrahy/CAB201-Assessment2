@@ -94,12 +94,14 @@ namespace ConsoleApp1
 
         private void clickAndCollect()
         {
-            deliveryOption = "remote";
+            deliveryOption = "clickcol";
+            ClickColDialog clickCol = new ClickColDialog(house);
+            clickCol.getClickColTimes(item.Name);
         }
 
         private void homeDelivery()
         {
-            deliveryOption = "home";
+            deliveryOption = "delivery";
             bool registered = getRegistered();
             if (registered)
             {
@@ -107,16 +109,13 @@ namespace ConsoleApp1
                 house.RegisterDeliveryAddress(item.Name, address.UnitNo, address.StNo, address.StName, address.Suffix, address.City, address.State, address.Postcode);
 
                 if (address.UnitNo == 0) Console.WriteLine($"\nThank you for your bid. If successful, the item will be provided via delivery to {address.StNo} {address.StName} {address.Suffix}, {address.City} {address.State} {address.Postcode}");
-                else Console.WriteLine($"\nAddress has been updated to {address.UnitNo}/{address.StNo} {address.tName} {suffix}, {city} {state} {postcode}");
+                else Console.WriteLine($"\nThank you for your bid. If successful, the item will be provided via delivery to {address.UnitNo}/{address.StNo} {address.StName} {address.Suffix}, {address.City} {address.State} {address.Postcode}");
             }
             else
             {
                 AddressDialog registerAddress = new AddressDialog(holder, house);
                 registerAddress.createDeliveryAddress(item.Name);
             }
-            Console.WriteLine("Thank you for your bid. If successful, the item will be provided via delivery to ")
-            if (unitNo == 0) Console.WriteLine($"\nAddress has been updated to {stNo} {stName} {suffix}, {city} {state} {postcode}");
-            else Console.WriteLine($"\nAddress has been updated to {unitNo}/{stNo} {stName} {suffix}, {city} {state} {postcode}");
         }
 
         private bool getRegistered()

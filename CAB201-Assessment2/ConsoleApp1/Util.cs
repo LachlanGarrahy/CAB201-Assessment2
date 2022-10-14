@@ -105,6 +105,23 @@ namespace ConsoleApp1
 			return number;
 		}
 
+		public static DateTime getDateTime(string prompt, string error)
+        {
+			DateTime dateTime;
+			while (true)
+			{
+				Console.WriteLine(prompt);
+				Write("> ");
+
+				if (DateTime.TryParse(Console.ReadLine(), out dateTime))
+				{
+					break;
+				}
+				Console.WriteLine(error);
+			}
+			return dateTime;
+		}
+
 		public static string addDashes(string title)
 		{
 			int length = title.Length;

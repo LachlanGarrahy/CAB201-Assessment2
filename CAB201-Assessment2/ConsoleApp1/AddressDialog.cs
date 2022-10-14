@@ -32,8 +32,8 @@ namespace ConsoleApp1
 
 			GetAddress();
 
-			if (unitNo == 0) Console.WriteLine($"\nAddress has been updated to {stNo} {stName} {suffix}, {city} {state} {postcode}");
-			else Console.WriteLine($"\nAddress has been updated to {unitNo}/{stNo} {stName} {suffix}, {city} {state} {postcode}");
+			if (unitNo == 0) Console.WriteLine($"\nThank you for your bid. If successful, the item will be provided via delivery to {stNo} {stName} {suffix}, {city} {state} {postcode}");
+			else Console.WriteLine($"\nThank you for your bid. If successful, the item will be provided via delivery to {unitNo}/{stNo} {stName} {suffix}, {city} {state} {postcode}");
 
 			house.RegisterUserAddress(holder.AccountId, unitNo, stNo, stName, suffix, city, state, postcode);
 		}

@@ -17,6 +17,7 @@ namespace ConsoleApp1
         private List<ProductListing> products = new List<ProductListing>();
         private List<ProductBid> bids = new List<ProductBid>();
         private List<DeliveryAddress> deliveryAddresses = new List<DeliveryAddress>();
+        private List<ClickAndCollect> clickColTimes = new List<ClickAndCollect>();
 
 
         public AuctionHouse()
@@ -44,6 +45,10 @@ namespace ConsoleApp1
         {
             deliveryAddresses.Add(new DeliveryAddress(name, unit, stNo, stName, suffix, city, state, postcode));
         }
+        public void RegisterClickColTime(string name, DateTime startTime, DateTime endTime)
+        {
+            clickColTimes.Add(new ClickAndCollect(name, startTime, endTime));
+        }
 
         public void UpdateBid(AccountId accountId, string productName, string productDesc, string price, AccountId bidderId, string bidPrice, string delivery)
         {
@@ -59,6 +64,7 @@ namespace ConsoleApp1
             foreach (var product in products) DataBase.SaveProductsToDb(product.ToString());
             foreach (var bid in bids) DataBase.SaveBidsToDb(bid.ToString());
             foreach (var deliveryAddress in deliveryAddresses) DataBase.SaveDeliveryAddressesToDb(deliveryAddress.ToString());
+            foreach (var time in clickColTimes) DataBase.SaveTimesToDb(time.ToString());
         }
         
 
