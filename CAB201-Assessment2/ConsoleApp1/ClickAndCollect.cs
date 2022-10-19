@@ -8,14 +8,14 @@ namespace ConsoleApp1
 {
     public class ClickAndCollect
     {
-        public ClickAndCollect(string name, DateTime startTime, DateTime endTime)
+        public ClickAndCollect(int id, DateTime startTime, DateTime endTime)
         {
-            Name = name;
+            ProductId = id;
             StartTime = startTime;
             EndTime = endTime;
         }
 
-        public string Name
+        public int ProductId
         {
             get;
         }
@@ -30,9 +30,9 @@ namespace ConsoleApp1
 
         public override string ToString()
         {
-            return $"{Name},{StartTime},{EndTime}";
+            return $"{ProductId},{StartTime},{EndTime}";
         }
 
-        public bool ProductNameMatches(string name) { return this.Name.Equals(name); }
+        public bool ProductIdMatches(int id) { return this.ProductId.Equals(id); }
     }
 }

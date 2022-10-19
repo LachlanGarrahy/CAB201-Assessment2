@@ -9,13 +9,14 @@ namespace ConsoleApp1
 {
     public class AccountPass
     {
-        const char Separator = '-';
+        private const string pwdRegex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[a-zA-Z\d\w\W]{8,}$";
 
         public AccountPass(string password)
         {
             if (IsValid(password))
             {
-                Password = password;
+                string hashedPassword = hashPassword(password);
+                Password = hashedPassword;
             }
             else
             {
@@ -30,8 +31,7 @@ namespace ConsoleApp1
 
         public static bool IsValid(string password)
         {
-            //password check
-            return true;
+            return RegexChecker.CheckRegex(pwdRegex, password);
         }
 
         public static bool TryParse(string s, out AccountPass password)
@@ -67,6 +67,31 @@ namespace ConsoleApp1
                 return false;
             }
         }
+        private string hashPassword(string password)
+        {
+            string sSourceData;
+            byte[] tmpSource;
+            byte[] tmpHash;
+
+            sSourceData = password;
+            //Create a byte array from source data.
+            tmpSource = ASCIIEncoding.ASCII.GetBytes(sSourceData);
+            //Compute hash based on source data.
+            tmpHash = new MD5CryptoServiceProvider().ComputeHash(tmpSource);
+            return ByteArrayToString(tmpHash);
+        }
+
+        private string ByteArrayToString(byte[] arrInput)
+        {
+            int i;
+            StringBuilder sOutput = new StringBuilder(arrInput.Length);
+            for (i = 0; i < arrInput.Length; i++)
+            {
+                sOutput.Append(arrInput[i].ToString("X2"));
+            }
+            return sOutput.ToString();
+        }
+
 
         public override int GetHashCode()
         {

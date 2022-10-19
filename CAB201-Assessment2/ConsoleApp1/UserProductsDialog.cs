@@ -23,6 +23,8 @@ namespace ConsoleApp1
 
             products = AuctionHouse.GetUserProducts(holder.AccountId);
 
+            products = SortProductList(products);
+
             DisplayProducts(products);
         }
     }

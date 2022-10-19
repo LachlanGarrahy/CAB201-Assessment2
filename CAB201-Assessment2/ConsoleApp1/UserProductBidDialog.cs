@@ -22,6 +22,8 @@ namespace ConsoleApp1
 
             products = AuctionHouse.GetUserItemBids(holder.AccountId);
 
+            products = SortProductList(products);
+
             DisplayProducts(products);
         }
 

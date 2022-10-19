@@ -8,6 +8,7 @@ namespace ConsoleApp1
 {
     public class AccountId
     {
+        private const string emailRegex = @"^([\w\.\-]+)@([\w\-]+)((\.+(\w){2,3})+)$";
         public AccountId(string email)
         {
             if (IsValid(email))
@@ -27,9 +28,7 @@ namespace ConsoleApp1
 
         public static bool IsValid(string email)
         {
-            //if (branchId < 100 || branchId >= 1000) return false;
-            //if (accountNum < 100000 || accountNum >= 1000000) return false;
-            return true;
+            return RegexChecker.CheckRegex(emailRegex, email);
         }
 
         public static bool TryParse(string s, out AccountId account)

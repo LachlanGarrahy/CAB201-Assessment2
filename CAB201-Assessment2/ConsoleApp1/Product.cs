@@ -9,31 +9,23 @@ namespace ConsoleApp1
     public class Product
     {
         public AccountId AccountId { get; }
+        public int ProductId { get; }
         public string Name { get; }
         public string Description { get; }
         public string Price { get; }
 
-        public Product(AccountId accountId, string name, string desc, string price)
+        public Product(AccountId accountId, int id, string name, string desc, string price)
         {
-            if (IsValid(accountId, name, desc, price))
-            {
-                AccountId = accountId;
-                Name = name;
-                Description = desc;
-                Price = price;
-            }
-            else
-            {
-                throw new ArgumentException("Product!");
-            }
-        }
-
-        public static bool IsValid(AccountId accountId, string name, string desc, string price)
-        {
-            return true;
+            AccountId = accountId;
+            ProductId = id;
+            Name = name;
+            Description = desc;
+            Price = price;
         }
 
         public bool AccountIdMatches(AccountId accountId) { return this.AccountId.Equals(accountId); }
+
+        public bool ProductIdMatches(int id) { return this.ProductId.Equals(id); }
 
         public bool ProductNameMatches(string name) { return this.Name.Equals(name); }
     }

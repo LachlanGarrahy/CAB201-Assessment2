@@ -9,6 +9,7 @@ namespace ConsoleApp1
 {
     internal class Util
     {
+		private const string price_regex = @"^\$\d+.\d\d$";
 		internal static uint ReadUint(params string[] options)
 		{
 			for (int i = 0; i < options.Length; i++)
@@ -27,8 +28,6 @@ namespace ConsoleApp1
 				{
 					return result;
 				}
-
-				Console.WriteLine("dumb fuck");
 			}
 		}
 
@@ -103,6 +102,23 @@ namespace ConsoleApp1
 				}
 			}
 			return number;
+		}
+		public static string getPrice(string prompt)
+        {
+			string price;
+			while (true)
+			{
+				Console.WriteLine(prompt);
+
+				Write("> ");
+				price = Console.ReadLine();
+
+				if (!string.IsNullOrWhiteSpace(price) & RegexChecker.CheckRegex(price_regex, price))
+				{
+					break;
+				}
+			}
+			return price;
 		}
 
 		public static DateTime getDateTime(string prompt, string error)
