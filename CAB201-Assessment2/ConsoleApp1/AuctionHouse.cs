@@ -14,7 +14,12 @@ namespace ConsoleApp1
     {
         private List<AccountHolder> accountHolders = new List<AccountHolder>();
         private List<UserAddress> userAddresses = new List<UserAddress>();
-        private List<Product> products = new List<Product>();
+        private List<ProductListing> products = new List<ProductListing>();
+        private List<ProductBid> bids = new List<ProductBid>();
+        private List<ProductPurchase> purchases = new List<ProductPurchase>();
+        private List<DeliveryAddress> deliveryAddresses = new List<DeliveryAddress>();
+        private List<ClickAndCollect> clickColTimes = new List<ClickAndCollect>();
+
 
         public AuctionHouse()
         {
@@ -31,21 +36,66 @@ namespace ConsoleApp1
         }
         public void RegisterProduct(AccountId accountId, string productName, string productDesc, string price)
         {
-            products.Add(new Product(accountId, productName, productDesc, price));
+            products.Add(new ProductListing(accountId, productName, productDesc, price));
+        }
+        public void CreateBid(AccountId accountId, string productName, string productDesc, string price, AccountId bidderId, string bidPrice, string delivery)
+        {
+            bids.Add(new ProductBid(accountId, productName, productDesc, price, bidderId, bidPrice, delivery));
+        }
+        public void RegisterDeliveryAddress(string name, uint unit, uint stNo, string stName, string suffix, string city, string state, uint postcode)
+        {
+            deliveryAddresses.Add(new DeliveryAddress(name, unit, stNo, stName, suffix, city, state, postcode));
+        }
+        public void RegisterClickColTime(string name, DateTime startTime, DateTime endTime)
+        {
+            clickColTimes.Add(new ClickAndCollect(name, startTime, endTime));
         }
 
-        public void SaveAccountHolders()
+        public void UpdateBid(AccountId accountId, string productName, string productDesc, string price, AccountId bidderId, string bidPrice, string delivery)
+        {
+            int index;
+            DeliveryAddress deliveryAddress = GetDeliveryAddress(productName);
+            if (deliveryAddress != null)
+            {
+                 index = deliveryAddresses.IndexOf(deliveryAddress);
+                 deliveryAddresses.RemoveAt(index);
+            }
+            else
+            {
+                ClickAndCollect clickCol = GetClickColTime(productName);
+                index = clickColTimes.IndexOf(clickCol);
+                clickColTimes.RemoveAt(index);
+            }
+            ProductBid currentBid = GetProductBids(productName);
+            index = bids.IndexOf(currentBid);
+            bids[index] = new ProductBid(accountId, productName, productDesc, price, bidderId, bidPrice, delivery);
+        }
+
+        public void CreateSale(AccountId accountId, string productName, string productDesc, string price, AccountId bidderId, string bidPrice, string delivery)
+        {
+            ProductBid currentBid = GetProductBids(productName);
+            if (currentBid != null)
+            {
+                int index = bids.IndexOf(currentBid);
+                bids.RemoveAt(index);
+                ProductListing currentlisting = GetProductListing(productName);
+                index = products.IndexOf(currentlisting);
+                products.RemoveAt(index);
+            }
+            purchases.Add(new ProductPurchase(accountId, productName, productDesc, price, bidderId, bidPrice, delivery));
+        }
+
+        public void saveData()
         {
             foreach (var accountHolder in accountHolders) DataBase.SaveAccountHoldersToDb(accountHolder.ToString());
-        }
-        public void SaveUserAddresses()
-        {
             foreach (var userAddress in userAddresses) DataBase.SaveUserAddressesToDb(userAddress.ToString());
-        }
-        public void SaveProducts()
-        {
             foreach (var product in products) DataBase.SaveProductsToDb(product.ToString());
+            foreach (var bid in bids) DataBase.SaveBidsToDb(bid.ToString());
+            foreach (var purchase in purchases) DataBase.SavePurchasesToDb(purchase.ToString());
+            foreach (var deliveryAddress in deliveryAddresses) DataBase.SaveDeliveryAddressesToDb(deliveryAddress.ToString());
+            foreach (var time in clickColTimes) DataBase.SaveTimesToDb(time.ToString());
         }
+        
 
         public bool HasAccountHolder(AccountId accountId)
         {
@@ -67,6 +117,16 @@ namespace ConsoleApp1
             return null;
         }
 
+        public AccountHolder GetAccountId(AccountId accountId)
+        {
+            foreach (AccountHolder accountHolder in accountHolders)
+            {
+                if (accountHolder.AccountIdMatches(accountId)) return accountHolder;
+            }
+
+            return null;
+        }
+
         public bool HasAddress(AccountId accountId)
         {
             foreach (UserAddress userAddress in userAddresses)
@@ -77,11 +137,38 @@ namespace ConsoleApp1
             return false;
         }
 
-        public List<Product> GetUserProducts(AccountId accountId)
+        public UserAddress GetUserAddress(AccountId accountId)
         {
-            List<Product> userProducts = new List<Product>();
+            foreach (UserAddress userAddress in userAddresses)
+            {
+                if (userAddress.AccountIdMatches(accountId)) return userAddress;
+            }
 
-            foreach (Product product in products)
+            return null;
+        }
+
+        public List<ProductListing> GetUserItemBids(AccountId accountId)
+        {
+            List<ProductListing> userItemBids = new List<ProductListing>();
+            List<ProductListing> userItems = GetUserProducts(accountId);
+
+            foreach (ProductListing item in userItems)
+            {
+                ProductBid bid = GetProductBids(item.Name);
+                if (bid != null)
+                {
+                    userItemBids.Add(item);
+                }
+            }
+
+            return userItemBids;
+        }
+
+        public List<ProductListing> GetUserProducts(AccountId accountId)
+        {
+            List<ProductListing> userProducts = new List<ProductListing>();
+
+            foreach (ProductListing product in products)
             {
                 if (product.AccountIdMatches(accountId))
                 {
@@ -90,11 +177,11 @@ namespace ConsoleApp1
             }
             return userProducts;
         }
-        public List<Product> GetSearchProducts(string searchTerm)
+        public List<ProductListing> GetSearchProducts(string searchTerm)
         {
-            List<Product> userProducts = new List<Product>();
+            List<ProductListing> userProducts = new List<ProductListing>();
 
-            foreach (Product product in products)
+            foreach (ProductListing product in products)
             {
                 if (product.ProductNameMatches(searchTerm))
                 {
@@ -103,9 +190,46 @@ namespace ConsoleApp1
             }
             return userProducts;
         }
-        public List<Product> GetAllProducts()
+        public List<ProductListing> GetAllProducts()
         {
             return products;
+        }
+
+        public ProductBid GetProductBids(string name)
+        {
+            foreach (ProductBid bid in bids)
+            {
+                if (bid.ProductNameMatches(name)) return bid;
+            }
+
+            return null;
+        }
+
+        public ProductListing GetProductListing(string name)
+        {
+            foreach (ProductListing listing in products)
+            {
+                if (listing.ProductNameMatches(name)) return listing;
+            }
+
+            return null;
+        }
+
+        public DeliveryAddress GetDeliveryAddress(string name)
+        {
+            foreach (DeliveryAddress deliveryAddress in deliveryAddresses)
+            {
+                if (deliveryAddress.ProductNameMatches(name)) return deliveryAddress;
+            }
+            return null;
+        }
+        public ClickAndCollect GetClickColTime(string name)
+        {
+            foreach (ClickAndCollect clickCol in clickColTimes)
+            {
+                if (clickCol.ProductNameMatches(name)) return clickCol;
+            }
+            return null;
         }
     }
 }

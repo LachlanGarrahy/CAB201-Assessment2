@@ -6,60 +6,21 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class UserAddress
+    public class UserAddress: Address
     {
-        public UserAddress(AccountId accountId, uint unit, uint stNo, string stName, string suffix, string city, string state, uint postcode)
+        public UserAddress(AccountId accountId, uint unitNo, uint stNo, string stName, string suffix, string city, string state, uint postcode) : base(unitNo, stNo, stName, suffix, city, state, postcode)
         {
-            if (IsValid(accountId, unit, stNo, stName, suffix, city, state, postcode))
+            if (IsValid(accountId, unitNo, stNo, stName, suffix, city, state, postcode))
             {
                 AccountId = accountId;
-                Unit = unit;
-                StNo = stNo;
-                StName = stName;
-                Suffix = suffix;
-                City = city;
-                State = state;
-                Postcode = postcode;
             }
             else
             {
-                throw new ArgumentException("Address!");
+                throw new ArgumentException("User Address!");
             }
         }
 
         public AccountId AccountId
-        {
-            get;
-        }
-        public uint Unit
-        {
-            get;
-        }
-
-        public uint StNo
-        {
-            get;
-        }
-        public string StName
-        {
-            get;
-        }
-        public string Suffix
-        {
-            get;
-        }
-
-        public string City
-        {
-            get;
-        }
-
-        public string State
-        {
-            get;
-        }
-
-        public uint Postcode
         {
             get;
         }
@@ -71,7 +32,7 @@ namespace ConsoleApp1
 
         public override string ToString()
         {
-            return $"{AccountId},{Unit},{StNo},{StName},{Suffix},{City},{State},{Postcode}";
+            return $"{AccountId},{UnitNo},{StNo},{StName},{Suffix},{City},{State},{Postcode}";
         }
 
         public bool AccountIdMatches(AccountId accountId) { return this.AccountId.Equals(accountId); }

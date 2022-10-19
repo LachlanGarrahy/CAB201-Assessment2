@@ -8,6 +8,11 @@ namespace ConsoleApp1
 {
     public class Product
     {
+        public AccountId AccountId { get; }
+        public string Name { get; }
+        public string Description { get; }
+        public string Price { get; }
+
         public Product(AccountId accountId, string name, string desc, string price)
         {
             if (IsValid(accountId, name, desc, price))
@@ -23,32 +28,9 @@ namespace ConsoleApp1
             }
         }
 
-        public AccountId AccountId
-        {
-            get;
-        }
-        public string Name
-        {
-            get;
-        }
-
-        public string Description
-        {
-            get;
-        }
-        public string Price
-        {
-            get;
-        }
-
         public static bool IsValid(AccountId accountId, string name, string desc, string price)
         {
             return true;
-        }
-
-        public override string ToString()
-        {
-            return $"{AccountId},{Name},{Description},{Price}";
         }
 
         public bool AccountIdMatches(AccountId accountId) { return this.AccountId.Equals(accountId); }

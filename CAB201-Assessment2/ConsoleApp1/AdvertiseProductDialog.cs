@@ -34,6 +34,7 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("Product name");
 
+                Console.Write("> ");
                 productName = Console.ReadLine();
 
                 if (!string.IsNullOrWhiteSpace(productName))
@@ -49,6 +50,7 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("Product description");
 
+                Console.Write("> ");
                 productDesc = Console.ReadLine();
 
                 if (!string.IsNullOrWhiteSpace(productDesc))
@@ -64,6 +66,7 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("Product price ($d.cc)");
 
+                Console.Write("> ");
                 price = Console.ReadLine();
 
                 if (!string.IsNullOrWhiteSpace(price))

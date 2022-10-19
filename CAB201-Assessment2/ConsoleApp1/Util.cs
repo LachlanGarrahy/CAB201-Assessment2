@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Console;
 
 namespace ConsoleApp1
 {
@@ -17,7 +18,8 @@ namespace ConsoleApp1
 
 			while (true)
 			{
-				Console.WriteLine("Please enter a value between 1 and {0}", options.Length);
+				Console.WriteLine("\nPlease enter a value between 1 and {0}", options.Length);
+				Write("> ");
 				string userInput = Console.ReadLine() ?? String.Empty;
 				uint result;
 
@@ -38,6 +40,7 @@ namespace ConsoleApp1
 			{
 				Console.WriteLine(prompt);
 
+				Write("> ");
 				string s = Console.ReadLine();
 
 				if (AccountId.TryParse(s, out acct))
@@ -56,6 +59,7 @@ namespace ConsoleApp1
 			{
 				Console.WriteLine(prompt);
 
+				Write("> ");
 				string s = Console.ReadLine();
 
 				if (AccountPass.TryParse(s, out pass))
@@ -65,6 +69,68 @@ namespace ConsoleApp1
 			}
 
 			return pass;
+		}
+
+		public static string getString(string prompt)
+		{
+			string searchTerm;
+			while (true)
+			{
+				Console.WriteLine(prompt);
+
+				Write("> ");
+				searchTerm = Console.ReadLine();
+
+				if (!string.IsNullOrWhiteSpace(searchTerm))
+				{
+					break;
+				}
+			}
+			return searchTerm;
+		}
+
+		public static uint getNumber(string prompt)
+        {
+			uint number;
+			while (true)
+			{
+				Console.WriteLine(prompt);
+				Write("> ");
+
+				if (uint.TryParse(Console.ReadLine(), out number))
+				{
+					break;
+				}
+			}
+			return number;
+		}
+
+		public static DateTime getDateTime(string prompt, string error)
+        {
+			DateTime dateTime;
+			while (true)
+			{
+				Console.WriteLine(prompt);
+				Write("> ");
+
+				if (DateTime.TryParse(Console.ReadLine(), out dateTime))
+				{
+					break;
+				}
+				Console.WriteLine(error);
+			}
+			return dateTime;
+		}
+
+		public static string addDashes(string title)
+		{
+			int length = title.Length;
+			for (int i = 1; i < length; i++)
+			{
+				title += "-";
+			}
+			title += "\n";
+			return title;
 		}
 	}
 }

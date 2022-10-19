@@ -6,23 +6,21 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class SearchProducts: ProductDisplay
+    internal class UserProductBidDialog: ProductDisplay
     {
+        private AccountHolder holder;
+
         private List<ProductListing> products = new List<ProductListing>();
-        private const string searchPrompt = "Please supply a search phrase (ALL to see all products)";
-        private string searchTerm;
-        public SearchProducts(string title, AuctionHouse house) : base(title, house)
+        public UserProductBidDialog(AccountHolder holder, string title, AuctionHouse house) : base(title, house)
         {
+            this.holder = holder;
         }
 
         public override void Display()
         {
             Console.WriteLine($"\n{Title}");
 
-            searchTerm = Util.getString(searchPrompt);
-
-            if (searchTerm == "ALL") products = AuctionHouse.GetAllProducts();
-            else products = AuctionHouse.GetSearchProducts(searchTerm);
+            products = AuctionHouse.GetUserItemBids(holder.AccountId);
 
             DisplayProducts(products);
         }

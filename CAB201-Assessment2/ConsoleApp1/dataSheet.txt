@@ -1,6 +1,10 @@
 Client,t,t,t
 Client,p,p,p
-Address,t,0,1,p,p,p,ACT,1000
-Product,t,bob,p,bob
-Product,t,p,p,p
-Product,t,i,i,i
+Address,t,1,1,1,1,1,ACT,1999
+Product,t,w,w,w
+Bid,t,w,w,w,t,30,clickcol
+Purchase,t,t,t,t,t,1,delivery
+Purchase,t,p,p,p,t,10,delivery
+Delivery,t,1,1,1,1,1,ACT,1999
+Delivery,p,1,1,1,1,1,ACT,1999
+ClickCol,w,31/12/2022 10:00:00 AM,31/12/2022 11:00:00 AM
