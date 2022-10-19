@@ -18,7 +18,6 @@ namespace ConsoleApp1
 		private string stName, suffix, city, state;
 		private uint unitNo, stNo, postcode;
 
-		private Address address;
 		public AddressDialog(AccountHolder holder, AuctionHouse house)
 		{
 			this.holder = holder;
@@ -32,13 +31,13 @@ namespace ConsoleApp1
 
 			GetAddress();
 
-			if (unitNo == 0) Console.WriteLine($"\nThank you for your bid. If successful, the item will be provided via delivery to {stNo} {stName} {suffix}, {city} {state} {postcode}");
-			else Console.WriteLine($"\nThank you for your bid. If successful, the item will be provided via delivery to {unitNo}/{stNo} {stName} {suffix}, {city} {state} {postcode}");
+			if (unitNo == 0) Console.WriteLine($"\nAddress has been updated to {stNo} {stName} {suffix}, {city} {state} {postcode}");
+			else Console.WriteLine($"\nAddress has been updated to {unitNo}/{stNo} {stName} {suffix}, {city} {state} {postcode}");
 
 			house.RegisterUserAddress(holder.AccountId, unitNo, stNo, stName, suffix, city, state, postcode);
 		}
 
-		public void createDeliveryAddress(string name)
+		public void createDeliveryAddress(int productId)
 		{
 			Console.WriteLine("Please provide your address.");
 
@@ -47,7 +46,7 @@ namespace ConsoleApp1
 			if (unitNo == 0) Console.WriteLine($"\nAddress has been updated to {stNo} {stName} {suffix}, {city} {state} {postcode}");
 			else Console.WriteLine($"\nAddress has been updated to {unitNo}/{stNo} {stName} {suffix}, {city} {state} {postcode}");
 
-			house.RegisterDeliveryAddress(name, unitNo, stNo, stName, suffix, city, state, postcode);
+			house.RegisterDeliveryAddress(productId, unitNo, stNo, stName, suffix, city, state, postcode);
 		}
 
 		private void GetAddress()

@@ -54,14 +54,14 @@ namespace ConsoleApp1
             }
 
             item = getProductInfo(itemNumber);
-            bid = getBid(item.Name);
+            bid = getBid(item.ProductId);
             if (bid != null) bidPrice = bid.BidPrice;
             Console.WriteLine($"\nBidding for {item.Name} (regular price {item.Price}), current highest bid {bidPrice}");
 
             while (true)
             {
-                currentBid = Util.getString(BIDPROMPT);
-                if (validBidEntry(currentBid)) break;
+                currentBid = Util.getPrice(BIDPROMPT);
+                if (isBidBigger(currentBid)) break;
             }
 
             Console.WriteLine($"\nYour bid of {currentBid} for {item.Name} is placed.");
@@ -72,8 +72,8 @@ namespace ConsoleApp1
             Process(option);
 
 
-            if (bid == null) house.CreateBid(item.AccountId, item.Name, item.Description, item.Price, holder.AccountId, currentBid, deliveryOption);
-            else house.UpdateBid(item.AccountId, item.Name, item.Description, item.Price, holder.AccountId, currentBid, deliveryOption);
+            if (bid == null) house.CreateBid(item.AccountId, item.ProductId, item.Name, item.Description, item.Price, holder.AccountId, currentBid, deliveryOption);
+            else house.UpdateBid(item.AccountId, item.ProductId, item.Name, item.Description, item.Price, holder.AccountId, currentBid, deliveryOption);
         }
 
         private void Process(uint option)
@@ -96,7 +96,7 @@ namespace ConsoleApp1
         {
             deliveryOption = "clickcol";
             ClickColDialog clickCol = new ClickColDialog(house);
-            clickCol.getClickColTimes(item.Name);
+            clickCol.getClickColTimes(item.ProductId);
         }
 
         private void homeDelivery()
@@ -106,7 +106,7 @@ namespace ConsoleApp1
             if (registered)
             {
                 UserAddress address = house.GetUserAddress(holder.AccountId);
-                house.RegisterDeliveryAddress(item.Name, address.UnitNo, address.StNo, address.StName, address.Suffix, address.City, address.State, address.Postcode);
+                house.RegisterDeliveryAddress(item.ProductId, address.UnitNo, address.StNo, address.StName, address.Suffix, address.City, address.State, address.Postcode);
 
                 if (address.UnitNo == 0) Console.WriteLine($"\nThank you for your bid. If successful, the item will be provided via delivery to {address.StNo} {address.StName} {address.Suffix}, {address.City} {address.State} {address.Postcode}");
                 else Console.WriteLine($"\nThank you for your bid. If successful, the item will be provided via delivery to {address.UnitNo}/{address.StNo} {address.StName} {address.Suffix}, {address.City} {address.State} {address.Postcode}");
@@ -114,7 +114,7 @@ namespace ConsoleApp1
             else
             {
                 AddressDialog registerAddress = new AddressDialog(holder, house);
-                registerAddress.createDeliveryAddress(item.Name);
+                registerAddress.createDeliveryAddress(item.ProductId);
             }
         }
 
@@ -133,21 +133,9 @@ namespace ConsoleApp1
         }
         
 
-        private ProductBid getBid(string name)
+        private ProductBid getBid(int productId)
         {
-            return house.GetProductBids(name);
-        }
-
-        private bool validBidEntry(string bidString)
-        {
-            if (!bidIsBid(bidString)) return false;
-            if (!isBidBigger(bidString))  return false;
-            return true;
-        }
-
-        private bool bidIsBid(string bidString)
-        {
-            return true;
+            return house.GetProductBids(productId);
         }
 
         private bool isBidBigger(string bidString)

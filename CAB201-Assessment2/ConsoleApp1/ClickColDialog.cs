@@ -25,11 +25,11 @@ namespace ConsoleApp1
 			this.house = house;
 		}
 
-		public void getClickColTimes(string name)
+		public void getClickColTimes(int id)
 		{
 			getTimes();
 
-			house.RegisterClickColTime(name, startTime, endTime);
+			house.RegisterClickColTime(id, startTime, endTime);
 
 			Console.WriteLine(SUCCESS, startTime.TimeOfDay, startTime.Day, startTime.Month, startTime.Year, endTime.TimeOfDay, endTime.Day, endTime.Month, endTime.Year);
 		}

@@ -8,7 +8,7 @@ namespace ConsoleApp1
 {
     public class ProductBid: Bid
     {
-        public ProductBid(AccountId accountId, string name, string desc, string price, AccountId bidderAccountId, string bidPrice, string delivery) : base(accountId, name, desc, price, bidderAccountId, bidPrice, delivery)
+        public ProductBid(AccountId accountId, int id, string name, string desc, string price, AccountId bidderAccountId, string bidPrice, string delivery) : base(accountId, id, name, desc, price, bidderAccountId, bidPrice, delivery)
         {
         }
     }

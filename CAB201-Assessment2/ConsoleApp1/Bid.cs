@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace ConsoleApp1
 {
@@ -11,9 +12,9 @@ namespace ConsoleApp1
         public AccountId BidderAccountId { get; }
         public string BidPrice { get; }
         public string Delivery { get; }
-        public Bid(AccountId accountId, string name, string desc, string price, AccountId bidderAccountId, string bidPrice, string delivery) : base(accountId, name, desc, price)
+        public Bid(AccountId accountId, int id, string name, string desc, string price, AccountId bidderAccountId, string bidPrice, string delivery) : base(accountId, id, name, desc, price)
         {
-            if (IsValid(bidderAccountId, bidPrice))
+            if (IsValid(bidPrice))
             {
                 BidderAccountId = bidderAccountId;
                 BidPrice = bidPrice;
@@ -24,14 +25,15 @@ namespace ConsoleApp1
                 throw new ArgumentException("Product!");
             }
         }
-        public static bool IsValid(AccountId BidderAccountId, string BidPrice)
+        public static bool IsValid(string BidPrice)
         {
+
             return true;
         }
 
         public override string ToString()
         {
-            return $"{AccountId},{Name},{Description},{Price},{BidderAccountId},{BidPrice},{Delivery}";
+            return $"{AccountId},{ProductId},{Name},{Description},{Price},{BidderAccountId},{BidPrice},{Delivery}";
         }
 
         public bool BidderIdMatches(AccountId accountId) { return this.BidderAccountId.Equals(accountId); }

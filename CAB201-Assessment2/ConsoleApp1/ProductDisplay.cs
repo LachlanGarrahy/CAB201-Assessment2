@@ -22,7 +22,7 @@ namespace ConsoleApp1
             Console.WriteLine(itemDialog);
             for (int i = 0; i < products.Count; i++)
             {
-                bid = getBid(products[i].Name);
+                bid = getBid(products[i].ProductId);
                 if (bid != null)
                 {
                     bidderName = AuctionHouse.GetAccountId(bid.BidderAccountId).Name;
@@ -37,9 +37,9 @@ namespace ConsoleApp1
             }
         }
 
-        private ProductBid getBid(string name)
+        private ProductBid getBid(int prodId)
         {
-            return AuctionHouse.GetProductBids(name);
+            return AuctionHouse.GetProductBids(prodId);
         }
 
         public List<ProductListing> SortProductList(List<ProductListing> productsToSort)

@@ -8,13 +8,13 @@ namespace ConsoleApp1
 {
     public class ProductListing: Product
     {
-        public ProductListing(AccountId accountId, string name, string desc, string price) : base(accountId, name, desc, price)
+        public ProductListing(AccountId accountId, int id, string name, string desc, string price) : base(accountId, id, name, desc, price)
         {
         }
 
         public override string ToString()
         {
-            return $"{AccountId},{Name},{Description},{Price}";
+            return $"{AccountId},{ProductId},{Name},{Description},{Price}";
         }
     }
 }

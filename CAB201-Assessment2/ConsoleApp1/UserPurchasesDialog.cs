@@ -35,7 +35,7 @@ namespace ConsoleApp1
             {
                 if(purchases[i].Delivery == "delivery")
                 {
-                    DeliveryAddress address = AuctionHouse.GetDeliveryAddress(purchases[i].Name);
+                    DeliveryAddress address = AuctionHouse.GetDeliveryAddress(purchases[i].ProductId);
                     string house;
                     if (address.UnitNo != 0) { 
                         house = $"{address.UnitNo}/{address.StNo}";
@@ -48,7 +48,7 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    ClickAndCollect clickColTime = AuctionHouse.GetClickColTime(purchases[i].Name);
+                    ClickAndCollect clickColTime = AuctionHouse.GetClickColTime(purchases[i].ProductId);
                     delivery = string.Format("Pick up between {0} on {1}/{2}/{3} and {4} on {5}/{6}/{7}",
                         clickColTime.StartTime.TimeOfDay, clickColTime.StartTime.Day, clickColTime.StartTime.Month, clickColTime.StartTime.Year,
                         clickColTime.EndTime.TimeOfDay, clickColTime.EndTime.Day, clickColTime.EndTime.Month, clickColTime.EndTime.Year);

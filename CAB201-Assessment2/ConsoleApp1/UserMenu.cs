@@ -110,7 +110,7 @@ namespace ConsoleApp1
             title = Util.addDashes(title);
             UserProductBidDialog userProductBidDialog = new UserProductBidDialog(holder, title, AuctionHouse);
             userProductBidDialog.Display();
-            MakeSale makeSaleDialog = new MakeSale(holder, AuctionHouse, userProductBidDialog.getCurrentProductList());
+            MakeSale makeSaleDialog = new MakeSale(AuctionHouse, userProductBidDialog.getCurrentProductList());
             makeSaleDialog.Display();
         }
         private void CurrentUserPurchases()

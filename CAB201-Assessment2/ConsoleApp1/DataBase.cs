@@ -40,7 +40,7 @@ namespace ConsoleApp1
 
             using StreamWriter writer = File.AppendText(fileName);
 
-            writer.Write($"Product,{fields[0]},{fields[1]},{fields[2]},{fields[3]}\n");
+            writer.Write($"Product,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]}\n");
         }
         public static void SaveBidsToDb(string bids)
         {
@@ -48,7 +48,7 @@ namespace ConsoleApp1
 
             using StreamWriter writer = File.AppendText(fileName);
 
-            writer.Write($"Bid,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]}\n");
+            writer.Write($"Bid,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]},{fields[7]}\n");
         }
         public static void SavePurchasesToDb(string purchases)
         {
@@ -56,7 +56,7 @@ namespace ConsoleApp1
 
             using StreamWriter writer = File.AppendText(fileName);
 
-            writer.Write($"Purchase,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]}\n");
+            writer.Write($"Purchase,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]},{fields[7]}\n");
         }
         public static void SaveDeliveryAddressesToDb(string addresses)
         {
@@ -126,36 +126,41 @@ namespace ConsoleApp1
         private void createProducts(string[] fields, AuctionHouse house)
         {
             AccountId.TryParse(fields[1], out AccountId currentId);
-            string name = fields[2];
-            string description = fields[3];
-            string price = fields[4];
-            house.RegisterProduct(currentId, name, description, price);
+            int prodId = int.Parse(fields[2]);
+            string name = fields[3];
+            string description = fields[4];
+            string price = fields[5];
+            house.RegisterExistingProduct(currentId, prodId, name, description, price);
+            house.increaseProductId();
         }
         private void createBids(string[] fields, AuctionHouse house)
         {
             AccountId.TryParse(fields[1], out AccountId currentId);
-            string name = fields[2];
-            string description = fields[3];
-            string price = fields[4];
-            AccountId.TryParse(fields[5], out AccountId bidderId);
-            string bidPrice = fields[6];
-            string delivery = fields[7];
-            house.CreateBid(currentId, name, description, price, bidderId, bidPrice, delivery);
+            int prodId = int.Parse(fields[2]);
+            string name = fields[3];
+            string description = fields[4];
+            string price = fields[5];
+            AccountId.TryParse(fields[6], out AccountId bidderId);
+            string bidPrice = fields[7];
+            string delivery = fields[8];
+            house.CreateBid(currentId, prodId, name, description, price, bidderId, bidPrice, delivery);
         }
         private void createPurchases(string[] fields, AuctionHouse house)
         {
             AccountId.TryParse(fields[1], out AccountId currentId);
-            string name = fields[2];
-            string description = fields[3];
-            string price = fields[4];
-            AccountId.TryParse(fields[5], out AccountId bidderId);
-            string bidPrice = fields[6];
-            string delivery = fields[7];
-            house.CreateSale(currentId, name, description, price, bidderId, bidPrice, delivery);
+            int prodId = int.Parse(fields[2]);
+            string name = fields[3];
+            string description = fields[4];
+            string price = fields[5];
+            AccountId.TryParse(fields[6], out AccountId bidderId);
+            string bidPrice = fields[7];
+            string delivery = fields[8];
+            house.CreateSale(currentId, prodId, name, description, price, bidderId, bidPrice, delivery);
+            house.increaseProductId();
         }
         private void createDeliveries(string[] fields, AuctionHouse house)
         {
-            string name = fields[1];
+            int prodId = int.Parse(fields[1]);
             uint unitNo = uint.Parse(fields[2]);
             uint stNo = uint.Parse(fields[3]);
             string stName = fields[4];
@@ -163,14 +168,14 @@ namespace ConsoleApp1
             string city = fields[6];
             string state = fields[7];
             uint postcode = uint.Parse(fields[8]);
-            house.RegisterDeliveryAddress(name, unitNo, stNo, stName, suffix, city, state, postcode);
+            house.RegisterDeliveryAddress(prodId, unitNo, stNo, stName, suffix, city, state, postcode);
         }
         private void createTimes(string[] fields, AuctionHouse house)
         {
-            string name = fields[1];
+            int prodId = int.Parse(fields[1]);
             DateTime startTime = DateTime.Parse(fields[2]);
             DateTime endTime = DateTime.Parse(fields[3]);
-            house.RegisterClickColTime(name, startTime, endTime);
+            house.RegisterClickColTime(prodId, startTime, endTime);
         }
     }
 }
