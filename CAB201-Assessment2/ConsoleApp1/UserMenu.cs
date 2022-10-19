@@ -23,6 +23,11 @@ namespace ConsoleApp1
             VIEW_PURCHASES_OPT = 5,
             LOG_OFF_OPT = 6;
 
+        string advertise_title = "Product Advertisement for {0}({1})\n",
+            get_products_title = "Product List for {0}({1})\n",
+            search_title = "Product Search for {0}({1})\n",
+            get_product_bids_title = "List Product Bids for {0}({1})\n";
+
         private AccountHolder holder;
 
         public UserMenu(AccountHolder holder, string title, AuctionHouse house) : base(title, house)
@@ -61,7 +66,7 @@ namespace ConsoleApp1
                     SearchProducts();
                     break;
                 case VIEW_BIDS_OPT:
-                    WriteLine("my bids");
+                    ViewMyProdcutBids();
                     break;
                 case VIEW_PURCHASES_OPT:
                     WriteLine("purchases");
@@ -76,7 +81,7 @@ namespace ConsoleApp1
 
         private void Advertise()
         {
-            string title = $"Product Advertisement for {holder.Name}({holder.AccountId})\n";
+            string title = string.Format(advertise_title, holder.Name, holder.AccountId);
             title = Util.addDashes(title);
             AdvertiseProductDialog advertiseDialog = new AdvertiseProductDialog(holder, title, AuctionHouse);
             advertiseDialog.Display();
@@ -84,19 +89,28 @@ namespace ConsoleApp1
 
         private void CurrentUserProducts()
         {
-            string title = $"Product List for {holder.Name}({holder.AccountId})\n";
+            string title = string.Format(get_products_title, holder.Name, holder.AccountId);
             title = Util.addDashes(title);
             UserProductsDialog userProductDialog = new UserProductsDialog(holder, title, AuctionHouse);
             userProductDialog.Display();
         }
         private void SearchProducts()
         {
-            string title = $"Product Search for {holder.Name}({holder.AccountId})\n";
+            string title = string.Format(search_title, holder.Name, holder.AccountId);
             title = Util.addDashes(title);
             SearchProducts searchProductDialog = new SearchProducts(title, AuctionHouse);
             searchProductDialog.Display();
             MakeBid makeBidDialog = new MakeBid(holder, AuctionHouse, searchProductDialog.getCurrentProductList());
             makeBidDialog.Display();
+        }
+        private void ViewMyProdcutBids()
+        {
+            string title = string.Format(get_product_bids_title, holder.Name, holder.AccountId);
+            title = Util.addDashes(title);
+            UserProductBidDialog userProductBidDialog = new UserProductBidDialog(holder, title, AuctionHouse);
+            userProductBidDialog.Display();
+            MakeSale makeSaleDialog = new MakeSale(holder, AuctionHouse, userProductBidDialog.getCurrentProductList());
+            makeSaleDialog.Display();
         }
     }
 }
