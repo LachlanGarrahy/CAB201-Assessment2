@@ -27,8 +27,6 @@ namespace ConsoleApp1
 				{
 					return result;
 				}
-
-				Console.WriteLine("dumb fuck");
 			}
 		}
 

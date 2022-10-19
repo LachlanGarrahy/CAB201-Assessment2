@@ -9,7 +9,7 @@ namespace ConsoleApp1
     internal class ProductDisplay: Dialog
     {
         private ProductBid bid;
-        private const string itemDialog = "Item #\tProduct name\tDescription\tList Price\tBidder name\tBidder email\tBid amt";
+        private const string itemDialog = "\nItem #\tProduct name\tDescription\tList Price\tBidder name\tBidder email\tBid amt";
         private string bidderName;
         private const string bidDataNull = "-\t-\t-";
         private string bidData;
@@ -19,9 +19,6 @@ namespace ConsoleApp1
 
         public void DisplayProducts(List<ProductListing> products)
         {
-            Console.WriteLine($"\n{Title}");
-
-            Console.WriteLine("Search results\n--------------");
             Console.WriteLine(itemDialog);
             for (int i = 0; i < products.Count; i++)
             {
@@ -43,6 +40,16 @@ namespace ConsoleApp1
         private ProductBid getBid(string name)
         {
             return AuctionHouse.GetProductBids(name);
+        }
+
+        public List<ProductListing> SortProductList(List<ProductListing> productsToSort)
+        {
+            productsToSort.Sort(delegate (ProductListing x, ProductListing y)
+            {
+                return x.Name.CompareTo(y.Name);
+            });
+
+            return productsToSort;
         }
     }
 }

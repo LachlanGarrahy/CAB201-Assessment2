@@ -54,7 +54,7 @@ namespace ConsoleApp1
 
             Console.WriteLine($"\nYou have sold {bid.Name} to {bidderName} for {bid.BidPrice}.");
 
-            house.CreateSale(bid.AccountId, bid.Name, bid.Description, bid.Price, bid.AccountId, bid.BidPrice, bid.Delivery);
+            house.CreateSale(bid.AccountId, bid.Name, bid.Description, bid.Price, bid.BidderAccountId, bid.BidPrice, bid.Delivery);
         }
 
         private Product getProductInfo(int item)

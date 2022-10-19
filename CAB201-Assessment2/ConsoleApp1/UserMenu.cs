@@ -26,7 +26,8 @@ namespace ConsoleApp1
         string advertise_title = "Product Advertisement for {0}({1})\n",
             get_products_title = "Product List for {0}({1})\n",
             search_title = "Product Search for {0}({1})\n",
-            get_product_bids_title = "List Product Bids for {0}({1})\n";
+            get_product_bids_title = "List Product Bids for {0}({1})\n",
+            get_purchases_title = "Purchased Items for {0}({1})\n";
 
         private AccountHolder holder;
 
@@ -69,7 +70,7 @@ namespace ConsoleApp1
                     ViewMyProdcutBids();
                     break;
                 case VIEW_PURCHASES_OPT:
-                    WriteLine("purchases");
+                    CurrentUserPurchases();
                     break;
                 default:
                     // do nothing.
@@ -98,7 +99,7 @@ namespace ConsoleApp1
         {
             string title = string.Format(search_title, holder.Name, holder.AccountId);
             title = Util.addDashes(title);
-            SearchProducts searchProductDialog = new SearchProducts(title, AuctionHouse);
+            SearchProducts searchProductDialog = new SearchProducts(holder, title, AuctionHouse);
             searchProductDialog.Display();
             MakeBid makeBidDialog = new MakeBid(holder, AuctionHouse, searchProductDialog.getCurrentProductList());
             makeBidDialog.Display();
@@ -111,6 +112,13 @@ namespace ConsoleApp1
             userProductBidDialog.Display();
             MakeSale makeSaleDialog = new MakeSale(holder, AuctionHouse, userProductBidDialog.getCurrentProductList());
             makeSaleDialog.Display();
+        }
+        private void CurrentUserPurchases()
+        {
+            string title = string.Format(get_purchases_title, holder.Name, holder.AccountId);
+            title = Util.addDashes(title);
+            UserPurchasesDialog userPurchaseDialog = new UserPurchasesDialog(holder, title, AuctionHouse);
+            userPurchaseDialog.Display();
         }
     }
 }

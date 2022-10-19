@@ -231,5 +231,19 @@ namespace ConsoleApp1
             }
             return null;
         }
+
+        public List<ProductPurchase> GetProductPurchases(AccountId accountId)
+        {
+            List<ProductPurchase> userPurchases = new List<ProductPurchase>();
+
+            foreach (ProductPurchase purchase in purchases)
+            {
+                if (purchase.AccountIdMatches(accountId))
+                {
+                    userPurchases.Add(purchase);
+                }
+            }
+            return userPurchases;
+        }
     }
 }
