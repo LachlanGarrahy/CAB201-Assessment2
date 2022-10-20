@@ -9,10 +9,11 @@ namespace ConsoleApp1
     internal class ProductDisplay: Dialog
     {
         private ProductBid bid;
-        private const string itemDialog = "\nItem #\tProduct name\tDescription\tList Price\tBidder name\tBidder email\tBid amt";
-        private string bidderName;
-        private const string bidDataNull = "-\t-\t-";
-        private string bidData;
+
+        private const string itemDialog = "\nItem #\tProduct name\tDescription\tList Price\tBidder name\tBidder email\tBid amt",
+            bidDataNull = "-\t-\t-";
+
+        private string bidderName, bidData;
         public ProductDisplay(string title, AuctionHouse house) : base(title, house)
         {
         }
@@ -20,6 +21,7 @@ namespace ConsoleApp1
         public void DisplayProducts(List<ProductListing> products)
         {
             Console.WriteLine(itemDialog);
+
             for (int i = 0; i < products.Count; i++)
             {
                 bid = getBid(products[i].ProductId);
@@ -37,6 +39,11 @@ namespace ConsoleApp1
             }
         }
 
+        public void DisplayNoResultError(string errorMessage)
+        {
+            Console.WriteLine($"\n\t{errorMessage}");
+        }
+
         private ProductBid getBid(int prodId)
         {
             return AuctionHouse.GetProductBids(prodId);
@@ -44,10 +51,10 @@ namespace ConsoleApp1
 
         public List<ProductListing> SortProductList(List<ProductListing> productsToSort)
         {
-            productsToSort.Sort(delegate (ProductListing x, ProductListing y)
-            {
-                return x.Name.CompareTo(y.Name);
-            });
+            productsToSort.OrderBy(x => x.Name)
+                .ThenBy(x => x.Description)
+                .ThenBy(x => x.Price)
+                .ToList();
 
             return productsToSort;
         }

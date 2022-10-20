@@ -12,6 +12,8 @@ namespace ConsoleApp1
         private AccountHolder holder;
 
         private List<ProductListing> products = new List<ProductListing>();
+
+        private const string errorMessage = "No items could be found";
         public UserProductsDialog(AccountHolder holder, string title, AuctionHouse house) : base(title, house)
         {
             this.holder = holder;
@@ -22,6 +24,12 @@ namespace ConsoleApp1
             Console.WriteLine($"\n{Title}");
 
             products = AuctionHouse.GetUserProducts(holder.AccountId);
+
+            if (!(products.Count > 0))
+            {
+                DisplayNoResultError(errorMessage);
+                return;
+            }
 
             products = SortProductList(products);
 

@@ -30,7 +30,7 @@ namespace ConsoleApp1
 
         public override string ToString()
         {
-            return $"{ProductId},{StartTime},{EndTime}";
+            return $"{ProductId}\t{StartTime}\t{EndTime}";
         }
 
         public bool ProductIdMatches(int id) { return this.ProductId.Equals(id); }

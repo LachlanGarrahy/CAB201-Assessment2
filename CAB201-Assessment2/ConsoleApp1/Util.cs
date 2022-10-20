@@ -9,7 +9,11 @@ namespace ConsoleApp1
 {
     internal class Util
     {
-		private const string price_regex = @"^\$\d+.\d\d$";
+		private const string price_regex = @"^\$\d+.\d\d$",
+			PRICEERROR = "\n\tPrice must be in $d.cc",
+			EMAILERROR = "\n\tThe supplied value is not a valid email address",
+			PWDERROR = "\n\tThe supplied value is not a valid password",
+			WHITESPACEERROR = "\n\the supplied Value cannot be whitespace";
 		internal static uint ReadUint(params string[] options)
 		{
 			for (int i = 0; i < options.Length; i++)
@@ -40,12 +44,13 @@ namespace ConsoleApp1
 				Console.WriteLine(prompt);
 
 				Write("> ");
-				string s = Console.ReadLine();
+				string id = Console.ReadLine();
 
-				if (AccountId.TryParse(s, out acct))
+				if (AccountId.TryParse(id, out acct))
 				{
 					break;
 				}
+				Console.WriteLine(EMAILERROR);
 			}
 
 			return acct;
@@ -59,12 +64,13 @@ namespace ConsoleApp1
 				Console.WriteLine(prompt);
 
 				Write("> ");
-				string s = Console.ReadLine();
+				string pwdinput = Console.ReadLine();
 
-				if (AccountPass.TryParse(s, out pass))
+				if (AccountPass.TryParse(pwdinput, out pass))
 				{
 					break;
 				}
+				Console.WriteLine(PWDERROR);
 			}
 
 			return pass;
@@ -84,19 +90,20 @@ namespace ConsoleApp1
 				{
 					break;
 				}
+				Console.WriteLine(WHITESPACEERROR);
 			}
 			return searchTerm;
 		}
 
-		public static uint getNumber(string prompt)
+		public static int getNumber(string prompt)
         {
-			uint number;
+			int number;
 			while (true)
 			{
 				Console.WriteLine(prompt);
 				Write("> ");
 
-				if (uint.TryParse(Console.ReadLine(), out number))
+				if (int.TryParse(Console.ReadLine(), out number))
 				{
 					break;
 				}
@@ -117,6 +124,7 @@ namespace ConsoleApp1
 				{
 					break;
 				}
+				Console.WriteLine(PRICEERROR);
 			}
 			return price;
 		}

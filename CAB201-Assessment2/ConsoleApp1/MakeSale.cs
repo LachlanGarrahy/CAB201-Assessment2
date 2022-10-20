@@ -14,7 +14,8 @@ namespace ConsoleApp1
         private ProductBid bid;
         private string bidderName;
 
-        private const string SEARCHPROMPT = "\nwould you like to place a bid on any of these items (yes or no)?";
+        private const string SEARCHPROMPT = "\nwould you like to sell something (yes or no)?",
+            OUTOFBOUNDSERROR = "\n\tValue must be between 1 and {0}";
 
         private string searchTerm;
         private int itemNumber = 0;
@@ -34,8 +35,9 @@ namespace ConsoleApp1
 
             while (true)
             {
-                itemNumber = Convert.ToInt32(Util.getNumber(itemPropmt));
+                itemNumber = Util.getNumber(itemPropmt);
                 if (itemNumber > 0 & itemNumber <= products.Count()) break;
+                Console.WriteLine(OUTOFBOUNDSERROR, products.Count());
             }
 
             item = getProductInfo(itemNumber);

@@ -13,15 +13,7 @@ namespace ConsoleApp1
 
         public AccountPass(string password)
         {
-            if (IsValid(password))
-            {
-                string hashedPassword = hashPassword(password);
-                Password = hashedPassword;
-            }
-            else
-            {
-                throw new ArgumentException("AccountId!");
-            }
+            Password = password;
         }
 
         public string Password
@@ -34,15 +26,23 @@ namespace ConsoleApp1
             return RegexChecker.CheckRegex(pwdRegex, password);
         }
 
-        public static bool TryParse(string s, out AccountPass password)
+        public static bool TryParse(string input, out AccountPass password)
         {
             password = null;
 
-            if (!string.IsNullOrWhiteSpace(s) && IsValid(s))
+            if (!string.IsNullOrWhiteSpace(input) && IsValid(input))
             {
-                password = new AccountPass(s);
+                string hashedPassword = hashPassword(input);
+                password = new AccountPass(hashedPassword);
             }
 
+            return password != null;
+        }
+
+        public static bool Parse(string input, out AccountPass password)
+        {
+            password = null;
+            password = new AccountPass(input);
             return password != null;
         }
 
@@ -67,7 +67,7 @@ namespace ConsoleApp1
                 return false;
             }
         }
-        private string hashPassword(string password)
+        private static string hashPassword(string password)
         {
             string sSourceData;
             byte[] tmpSource;
@@ -81,7 +81,7 @@ namespace ConsoleApp1
             return ByteArrayToString(tmpHash);
         }
 
-        private string ByteArrayToString(byte[] arrInput)
+        private static string ByteArrayToString(byte[] arrInput)
         {
             int i;
             StringBuilder sOutput = new StringBuilder(arrInput.Length);

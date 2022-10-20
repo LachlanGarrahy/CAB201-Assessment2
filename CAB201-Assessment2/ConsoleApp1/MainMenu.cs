@@ -13,7 +13,7 @@ namespace ConsoleApp1
             SIGNIN = "Sign In",
             EXIT = "Exit";
 
-        const string CLOSING_TEXT = "+--------------------------------------------------+\n" +
+        const string CLOSING_TEXT = "\n+--------------------------------------------------+\n" +
             "| Good bye, thank you for using the Auction House! |\n" +
             "+--------------------------------------------------+";
 

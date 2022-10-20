@@ -43,7 +43,7 @@ namespace ConsoleApp1
 
         public override string ToString()
         {
-            return $"{AccountId},{Name},{AccountPass}";
+            return $"{AccountId}\t{Name}\t{AccountPass}";
         }
 
         public bool AccountIdMatches(AccountId accountId) { return this.AccountId.Equals(accountId); }
