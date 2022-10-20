@@ -15,12 +15,13 @@ namespace ConsoleApp1
         private Product item;
         private ProductBid bid;
 
-        private const string SEARCHPROMPT = "\nwould you like to place a bid on any of these items (yes or no)?";
-        private const string BIDPROMPT = "\nHow much do you bid?";
-        private const string DELIVERYTITLE = "\nDelivery Instructions\n--------------------";
-
-        const string CLICKCOL = "Click and Collect",
-            HOMEDEL = "Home Delivery";
+        private const string SEARCHPROMPT = "\nwould you like to place a bid on any of these items (yes or no)?",
+            BIDPROMPT = "\nHow much do you bid?",
+            DELIVERYTITLE = "\nDelivery Instructions\n--------------------",
+            BIDERROR = "\n\tPlease enter an amount higher than the current bid",
+            CLICKCOL = "Click and Collect",
+            HOMEDEL = "Home Delivery",
+            OUTOFBOUNDSERROR = "\n\tValue must be between 1 and {0}";
 
         const uint CLICKCOL_OPT = 1,
             HOMEDEL_OPT = 2;
@@ -45,24 +46,9 @@ namespace ConsoleApp1
             searchTerm = Util.getString(SEARCHPROMPT);
             if (searchTerm != "yes") return;
 
-            string itemPropmt = $"\nPlease enter a non-negative integer between 1 and {products.Count()}:";
+            GetItem();
 
-            while (true)
-            {
-                itemNumber = Convert.ToInt32(Util.getNumber(itemPropmt));
-                if (itemNumber > 0 & itemNumber <= products.Count()) break;
-            }
-
-            item = getProductInfo(itemNumber);
-            bid = getBid(item.ProductId);
-            if (bid != null) bidPrice = bid.BidPrice;
-            Console.WriteLine($"\nBidding for {item.Name} (regular price {item.Price}), current highest bid {bidPrice}");
-
-            while (true)
-            {
-                currentBid = Util.getPrice(BIDPROMPT);
-                if (isBidBigger(currentBid)) break;
-            }
+            getNewBid();
 
             Console.WriteLine($"\nYour bid of {currentBid} for {item.Name} is placed.");
 
@@ -71,9 +57,35 @@ namespace ConsoleApp1
 
             Process(option);
 
-
             if (bid == null) house.CreateBid(item.AccountId, item.ProductId, item.Name, item.Description, item.Price, holder.AccountId, currentBid, deliveryOption);
             else house.UpdateBid(item.AccountId, item.ProductId, item.Name, item.Description, item.Price, holder.AccountId, currentBid, deliveryOption);
+        }
+
+        private void GetItem()
+        {
+            string itemPropmt = $"\nPlease enter a non-negative integer between 1 and {products.Count()}:";
+
+            while (true)
+            {
+                itemNumber = Util.getNumber(itemPropmt);
+                if (itemNumber > 0 & itemNumber <= products.Count()) break;
+                Console.WriteLine(OUTOFBOUNDSERROR, products.Count());
+            }
+
+            item = getProductInfo(itemNumber);
+            bid = getBid(item.ProductId);
+
+            if (bid != null) bidPrice = bid.BidPrice;
+            Console.WriteLine($"\nBidding for {item.Name} (regular price {item.Price}), current highest bid {bidPrice}");
+        }
+
+        private void getNewBid()
+        {
+            while (true)
+            {
+                currentBid = Util.getPrice(BIDPROMPT);
+                if (isBidBigger(currentBid)) break;
+            }
         }
 
         private void Process(uint option)
@@ -144,7 +156,7 @@ namespace ConsoleApp1
             currentBidDecimal = decimal.Parse(bidString, NumberStyles.Currency);
             if (existingBidDecimal >= currentBidDecimal)
             {
-                Console.WriteLine("Please enter an amount higher than the current bid");
+                Console.WriteLine(BIDERROR);
                 return false;
             }
             return true;

@@ -8,7 +8,7 @@ namespace ConsoleApp1
 {
     public class UserAddress: Address
     {
-        public UserAddress(AccountId accountId, uint unitNo, uint stNo, string stName, string suffix, string city, string state, uint postcode) : base(unitNo, stNo, stName, suffix, city, state, postcode)
+        public UserAddress(AccountId accountId, int unitNo, int stNo, string stName, string suffix, string city, string state, int postcode) : base(unitNo, stNo, stName, suffix, city, state, postcode)
         {
             AccountId = accountId;
         }

@@ -114,13 +114,13 @@ namespace ConsoleApp1
         private void createAddresses(string[] fields, AuctionHouse house)
         {
             AccountId.TryParse(fields[1], out AccountId currentId);
-            uint unitNo = uint.Parse(fields[2]);
-            uint stNo = uint.Parse(fields[3]);
+            int unitNo = int.Parse(fields[2]);
+            int stNo = int.Parse(fields[3]);
             string stName = fields[4];
             string suffix = fields[5];
             string city = fields[6];
             string state = fields[7];
-            uint postcode = uint.Parse(fields[8]);
+            int postcode = int.Parse(fields[8]);
             house.RegisterUserAddress(currentId, unitNo, stNo, stName, suffix, city, state, postcode);
         }
         private void createProducts(string[] fields, AuctionHouse house)
@@ -161,13 +161,13 @@ namespace ConsoleApp1
         private void createDeliveries(string[] fields, AuctionHouse house)
         {
             int prodId = int.Parse(fields[1]);
-            uint unitNo = uint.Parse(fields[2]);
-            uint stNo = uint.Parse(fields[3]);
+            int unitNo = int.Parse(fields[2]);
+            int stNo = int.Parse(fields[3]);
             string stName = fields[4];
             string suffix = fields[5];
             string city = fields[6];
             string state = fields[7];
-            uint postcode = uint.Parse(fields[8]);
+            int postcode = int.Parse(fields[8]);
             house.RegisterDeliveryAddress(prodId, unitNo, stNo, stName, suffix, city, state, postcode);
         }
         private void createTimes(string[] fields, AuctionHouse house)

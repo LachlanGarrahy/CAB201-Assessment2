@@ -32,7 +32,7 @@ namespace ConsoleApp1
         {
             accountHolders.Add(new AccountHolder(accountId, name, accountPass));
         }
-        public void RegisterUserAddress(AccountId accountId, uint unit, uint stNo, string stName, string suffix, string city, string state, uint postcode)
+        public void RegisterUserAddress(AccountId accountId, int unit, int stNo, string stName, string suffix, string city, string state, int postcode)
         {
             userAddresses.Add(new UserAddress(accountId, unit, stNo, stName, suffix, city, state, postcode));
         }
@@ -49,7 +49,7 @@ namespace ConsoleApp1
         {
             bids.Add(new ProductBid(accountId, prodId, productName, productDesc, price, bidderId, bidPrice, delivery));
         }
-        public void RegisterDeliveryAddress(int prodId, uint unit, uint stNo, string stName, string suffix, string city, string state, uint postcode)
+        public void RegisterDeliveryAddress(int prodId, int unit, int stNo, string stName, string suffix, string city, string state, int postcode)
         {
             deliveryAddresses.Add(new DeliveryAddress(prodId, unit, stNo, stName, suffix, city, state, postcode));
         }

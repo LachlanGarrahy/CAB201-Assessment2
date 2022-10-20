@@ -8,7 +8,7 @@ namespace ConsoleApp1
 {
     public class DeliveryAddress: Address
     {
-        public DeliveryAddress(int id, uint unitNo, uint stNo, string stName, string suffix, string city, string state, uint postcode) : base(unitNo, stNo, stName, suffix, city, state, postcode)
+        public DeliveryAddress(int id, int unitNo, int stNo, string stName, string suffix, string city, string state, int postcode) : base(unitNo, stNo, stName, suffix, city, state, postcode)
         {
             ProductId = id;
         }
