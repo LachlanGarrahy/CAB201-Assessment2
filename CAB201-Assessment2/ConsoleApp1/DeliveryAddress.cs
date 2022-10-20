@@ -20,7 +20,7 @@ namespace ConsoleApp1
 
         public override string ToString()
         {
-            return $"{ProductId},{UnitNo},{StNo},{StName},{Suffix},{City},{State},{Postcode}";
+            return $"{ProductId}\t{UnitNo}\t{StNo}\t{StName}\t{Suffix}\t{City}\t{State}\t{Postcode}";
         }
 
         public bool ProductIdMatches(int id) { return this.ProductId.Equals(id); }

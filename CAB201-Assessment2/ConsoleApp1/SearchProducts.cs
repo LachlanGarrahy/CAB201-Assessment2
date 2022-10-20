@@ -10,7 +10,8 @@ namespace ConsoleApp1
     {
         private List<ProductListing> products = new List<ProductListing>();
         private AccountHolder holder;
-        private const string searchPrompt = "Please supply a search phrase (ALL to see all products)";
+        private const string searchPrompt = "Please supply a search phrase (ALL to see all products)",
+            errorMessage = "No items could be found for search term {0}";
         private string searchTerm;
         public SearchProducts(AccountHolder holder, string title, AuctionHouse house) : base(title, house)
         {
@@ -26,10 +27,18 @@ namespace ConsoleApp1
             createCurrentProductList();
 
             Console.WriteLine("\nSearch results\n--------------");
-            
+
+            if (!(products.Count > 0))
+            {
+                DisplayNoResultError(string.Format(errorMessage, searchTerm));
+                return;
+            }
+
             products = SortProductList(products);
 
             DisplayProducts(products);
+            MakeBid makeBidDialog = new MakeBid(holder, AuctionHouse, products);
+            makeBidDialog.Display();
         }
 
         private void createCurrentProductList()

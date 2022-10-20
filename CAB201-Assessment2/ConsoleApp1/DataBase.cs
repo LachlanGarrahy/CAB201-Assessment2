@@ -16,7 +16,7 @@ namespace ConsoleApp1
         }
 
         private const string fileName = ("./dataSheet.txt");
-        private const string DELIM = ",";
+        private const string DELIM = "\t";
 
         public static void SaveAccountHoldersToDb(string accountHolder)
         {
@@ -24,7 +24,7 @@ namespace ConsoleApp1
 
             using StreamWriter writer = File.AppendText(fileName);
 
-            writer.Write($"Client,{fields[0]},{fields[1]},{fields[2]}\n");
+            writer.Write($"Client\t{fields[0]}\t{fields[1]}\t{fields[2]}\n");
         }
         public static void SaveUserAddressesToDb(string addresses)
         {
@@ -32,7 +32,7 @@ namespace ConsoleApp1
 
             using StreamWriter writer = File.AppendText(fileName);
 
-            writer.Write($"Address,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]},{fields[7]}\n");
+            writer.Write($"Address\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
         }
         public static void SaveProductsToDb(string products)
         {
@@ -40,7 +40,7 @@ namespace ConsoleApp1
 
             using StreamWriter writer = File.AppendText(fileName);
 
-            writer.Write($"Product,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]}\n");
+            writer.Write($"Product\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\n");
         }
         public static void SaveBidsToDb(string bids)
         {
@@ -48,7 +48,7 @@ namespace ConsoleApp1
 
             using StreamWriter writer = File.AppendText(fileName);
 
-            writer.Write($"Bid,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]},{fields[7]}\n");
+            writer.Write($"Bid\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
         }
         public static void SavePurchasesToDb(string purchases)
         {
@@ -56,7 +56,7 @@ namespace ConsoleApp1
 
             using StreamWriter writer = File.AppendText(fileName);
 
-            writer.Write($"Purchase,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]},{fields[7]}\n");
+            writer.Write($"Purchase\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
         }
         public static void SaveDeliveryAddressesToDb(string addresses)
         {
@@ -64,7 +64,7 @@ namespace ConsoleApp1
 
             using StreamWriter writer = File.AppendText(fileName);
 
-            writer.Write($"Delivery,{fields[0]},{fields[1]},{fields[2]},{fields[3]},{fields[4]},{fields[5]},{fields[6]},{fields[7]}\n");
+            writer.Write($"Delivery\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
         }
         public static void SaveTimesToDb(string times)
         {
@@ -72,7 +72,7 @@ namespace ConsoleApp1
 
             using StreamWriter writer = File.AppendText(fileName);
 
-            writer.Write($"ClickCol,{fields[0]},{fields[1]},{fields[2]}\n");
+            writer.Write($"ClickCol\t{fields[0]}\t{fields[1]}\t{fields[2]}\n");
         }
 
         public void InitialiseDb(AuctionHouse house)
@@ -108,7 +108,7 @@ namespace ConsoleApp1
         {
             AccountId.TryParse(fields[1], out AccountId currentId);
             string name = fields[2];
-            AccountPass.TryParse(fields[3], out AccountPass currentPass);
+            AccountPass.Parse(fields[3], out AccountPass currentPass);
             house.RegisterAccountHolder(currentId, name, currentPass);
         }
         private void createAddresses(string[] fields, AuctionHouse house)

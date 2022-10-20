@@ -40,9 +40,9 @@ namespace ConsoleApp1
 				Console.WriteLine(prompt);
 
 				Write("> ");
-				string s = Console.ReadLine();
+				string id = Console.ReadLine();
 
-				if (AccountId.TryParse(s, out acct))
+				if (AccountId.TryParse(id, out acct))
 				{
 					break;
 				}
@@ -59,9 +59,9 @@ namespace ConsoleApp1
 				Console.WriteLine(prompt);
 
 				Write("> ");
-				string s = Console.ReadLine();
+				string pwdinput = Console.ReadLine();
 
-				if (AccountPass.TryParse(s, out pass))
+				if (AccountPass.TryParse(pwdinput, out pass))
 				{
 					break;
 				}

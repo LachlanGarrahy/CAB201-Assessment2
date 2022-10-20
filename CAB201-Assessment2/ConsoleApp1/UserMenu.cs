@@ -30,6 +30,7 @@ namespace ConsoleApp1
             get_purchases_title = "Purchased Items for {0}({1})\n";
 
         private AccountHolder holder;
+        private List<ProductListing> products = new List<ProductListing>();
 
         public UserMenu(AccountHolder holder, string title, AuctionHouse house) : base(title, house)
         {
@@ -100,9 +101,7 @@ namespace ConsoleApp1
             string title = string.Format(search_title, holder.Name, holder.AccountId);
             title = Util.addDashes(title);
             SearchProducts searchProductDialog = new SearchProducts(holder, title, AuctionHouse);
-            searchProductDialog.Display();
-            MakeBid makeBidDialog = new MakeBid(holder, AuctionHouse, searchProductDialog.getCurrentProductList());
-            makeBidDialog.Display();
+            searchProductDialog.Display(); 
         }
         private void ViewMyProdcutBids()
         {
@@ -110,8 +109,6 @@ namespace ConsoleApp1
             title = Util.addDashes(title);
             UserProductBidDialog userProductBidDialog = new UserProductBidDialog(holder, title, AuctionHouse);
             userProductBidDialog.Display();
-            MakeSale makeSaleDialog = new MakeSale(AuctionHouse, userProductBidDialog.getCurrentProductList());
-            makeSaleDialog.Display();
         }
         private void CurrentUserPurchases()
         {
@@ -120,5 +117,7 @@ namespace ConsoleApp1
             UserPurchasesDialog userPurchaseDialog = new UserPurchasesDialog(holder, title, AuctionHouse);
             userPurchaseDialog.Display();
         }
+
+        
     }
 }

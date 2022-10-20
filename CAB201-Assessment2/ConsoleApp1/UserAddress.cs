@@ -10,14 +10,7 @@ namespace ConsoleApp1
     {
         public UserAddress(AccountId accountId, uint unitNo, uint stNo, string stName, string suffix, string city, string state, uint postcode) : base(unitNo, stNo, stName, suffix, city, state, postcode)
         {
-            if (IsValid(accountId, unitNo, stNo, stName, suffix, city, state, postcode))
-            {
-                AccountId = accountId;
-            }
-            else
-            {
-                throw new ArgumentException("User Address!");
-            }
+            AccountId = accountId;
         }
 
         public AccountId AccountId
@@ -25,14 +18,9 @@ namespace ConsoleApp1
             get;
         }
 
-        public static bool IsValid(AccountId accountId, uint unit, uint stNo, string stName, string suffix, string city, string state, uint postcode)
-        {
-            return true;
-        }
-
         public override string ToString()
         {
-            return $"{AccountId},{UnitNo},{StNo},{StName},{Suffix},{City},{State},{Postcode}";
+            return $"{AccountId}\t{UnitNo}\t{StNo}\t{StName}\t{Suffix}\t{City}\t{State}\t{Postcode}";
         }
 
         public bool AccountIdMatches(AccountId accountId) { return this.AccountId.Equals(accountId); }

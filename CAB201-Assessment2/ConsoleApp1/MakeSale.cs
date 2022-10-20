@@ -14,7 +14,7 @@ namespace ConsoleApp1
         private ProductBid bid;
         private string bidderName;
 
-        private const string SEARCHPROMPT = "\nwould you like to place a bid on any of these items (yes or no)?";
+        private const string SEARCHPROMPT = "\nwould you like to sell something (yes or no)?";
 
         private string searchTerm;
         private int itemNumber = 0;

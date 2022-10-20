@@ -14,7 +14,7 @@ namespace ConsoleApp1
 
         public override string ToString()
         {
-            return $"{AccountId},{ProductId},{Name},{Description},{Price}";
+            return $"{AccountId}\t{ProductId}\t{Name}\t{Description}\t{Price}";
         }
     }
 }
