@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to create the product object and check whether the information matches
+    /// </summary>
     public class Product
     {
         public AccountId AccountId { get; }
@@ -22,7 +25,7 @@ namespace ConsoleApp1
             Description = desc;
             Price = price;
         }
-
+        //methods to check whether the information matches
         public bool AccountIdMatches(AccountId accountId) { return this.AccountId.Equals(accountId); }
 
         public bool ProductIdMatches(int id) { return this.ProductId.Equals(id); }

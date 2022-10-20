@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to instatiate the bids on user products
+    /// </summary>
     internal class UserProductBidDialog: ProductDisplay
     {
         private AccountHolder holder;

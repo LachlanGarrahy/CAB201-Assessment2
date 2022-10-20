@@ -7,8 +7,12 @@ using System.Security.Cryptography;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to create all passwords within the system
+    /// </summary>
     public class AccountPass
     {
+        //password regular expression
         private const string pwdRegex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[a-zA-Z\d\w\W]{8,}$";
 
         public AccountPass(string password)
@@ -20,12 +24,15 @@ namespace ConsoleApp1
         {
             get;
         }
-
+        //method that runs a regex check on the supplied password
         public static bool IsValid(string password)
         {
             return RegexChecker.CheckRegex(pwdRegex, password);
         }
-
+        //method to check if the password is valid
+        //              hash the password
+        //              and create the new password object
+        
         public static bool TryParse(string input, out AccountPass password)
         {
             password = null;
@@ -38,19 +45,19 @@ namespace ConsoleApp1
 
             return password != null;
         }
-
+        //method to parse the values from the database to passwords within the system
         public static bool Parse(string input, out AccountPass password)
         {
             password = null;
             password = new AccountPass(input);
             return password != null;
         }
-
+        //method to return the string value of the password
         public override string ToString()
         {
             return $"{Password}";
         }
-
+        //method to check whether the supplied email matches this email
         public override bool Equals(object? obj)
         {
             if (obj == null)
@@ -67,6 +74,7 @@ namespace ConsoleApp1
                 return false;
             }
         }
+        //method to take the password as a string input and hash it
         private static string hashPassword(string password)
         {
             string sSourceData;

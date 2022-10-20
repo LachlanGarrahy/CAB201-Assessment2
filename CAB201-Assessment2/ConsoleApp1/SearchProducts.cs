@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// method to get user input and search products
+    /// </summary>
     internal class SearchProducts: ProductDisplay
     {
         private List<ProductListing> products = new List<ProductListing>();
@@ -17,7 +20,7 @@ namespace ConsoleApp1
         {
             this.holder = holder;
         }
-
+        //method to get the product information
         public override void Display()
         {
             Console.WriteLine($"\n{Title}");
@@ -40,7 +43,7 @@ namespace ConsoleApp1
             MakeBid makeBidDialog = new MakeBid(holder, AuctionHouse, products);
             makeBidDialog.Display();
         }
-
+        //method to create the product list
         private void createCurrentProductList()
         {
             List <ProductListing> tempProducts = new List <ProductListing>();

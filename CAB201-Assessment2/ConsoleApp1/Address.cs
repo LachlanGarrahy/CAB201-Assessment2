@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-
+	/// <summary>
+	/// base class for addresses within the system
+	/// </summary>
     public class Address
     {
 		public string StName { get; }

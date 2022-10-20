@@ -10,8 +10,14 @@ using System.Globalization;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class that stores all data relating to the auction house in runtime
+    /// </summary>
     public class AuctionHouse
     {
+        /// <summary>
+        /// lists to hold the relevant data
+        /// </summary>
         private List<AccountHolder> accountHolders = new List<AccountHolder>();
         private List<UserAddress> userAddresses = new List<UserAddress>();
         private List<ProductListing> products = new List<ProductListing>();
@@ -27,7 +33,7 @@ namespace ConsoleApp1
         {
             // throw new System.NotImplementedException();
         }
-
+        //methods to create relevant objects and save them to the relevant lists
         public void RegisterAccountHolder(AccountId accountId, string name, AccountPass accountPass)
         {
             accountHolders.Add(new AccountHolder(accountId, name, accountPass));
@@ -57,7 +63,7 @@ namespace ConsoleApp1
         {
             clickColTimes.Add(new ClickAndCollect(prodId, startTime, endTime));
         }
-
+        //method to update the bid information if a new bid is created
         public void UpdateBid(AccountId accountId, int prodId, string productName, string productDesc, string price, AccountId bidderId, string bidPrice, string delivery)
         {
             int index;
@@ -77,7 +83,7 @@ namespace ConsoleApp1
             index = bids.IndexOf(currentBid);
             bids[index] = new ProductBid(accountId, prodId, productName, productDesc, price, bidderId, bidPrice, delivery);
         }
-
+        //method to change a bid to a sale
         public void CreateSale(AccountId accountId, int prodId, string productName, string productDesc, string price, AccountId bidderId, string bidPrice, string delivery)
         {
             ProductBid currentBid = GetProductBids(prodId);
@@ -91,12 +97,12 @@ namespace ConsoleApp1
             }
             purchases.Add(new ProductPurchase(accountId, prodId, productName, productDesc, price, bidderId, bidPrice, delivery));
         }
-
+        //method to track the product id
         public void increaseProductId()
         {
             productId++;
         }
-
+        //method that sends all the lists to the database class to be processed and saved to a text file
         public void saveData()
         {
             foreach (var accountHolder in accountHolders) DataBase.SaveAccountHoldersToDb(accountHolder.ToString());
@@ -107,8 +113,7 @@ namespace ConsoleApp1
             foreach (var deliveryAddress in deliveryAddresses) DataBase.SaveDeliveryAddressesToDb(deliveryAddress.ToString());
             foreach (var time in clickColTimes) DataBase.SaveTimesToDb(time.ToString());
         }
-        
-
+        //method to check if an account id matches one in the database
         public bool HasAccountHolder(AccountId accountId)
         {
             foreach (AccountHolder accountHolder in accountHolders)
@@ -118,7 +123,7 @@ namespace ConsoleApp1
 
             return false;
         }
-
+        //method to get the current user
         public AccountHolder GetAccountHolder(AccountId accountId, AccountPass accountPass)
         {
             foreach(AccountHolder accountHolder in accountHolders)
@@ -128,7 +133,7 @@ namespace ConsoleApp1
 
             return null;
         }
-
+        //method to get an account via the email address
         public AccountHolder GetAccountId(AccountId accountId)
         {
             foreach (AccountHolder accountHolder in accountHolders)
@@ -138,7 +143,7 @@ namespace ConsoleApp1
 
             return null;
         }
-
+        //method to check if the user has an address saved via their email
         public bool HasAddress(AccountId accountId)
         {
             foreach (UserAddress userAddress in userAddresses)
@@ -148,7 +153,7 @@ namespace ConsoleApp1
 
             return false;
         }
-
+        //method to get a users address via their email
         public UserAddress GetUserAddress(AccountId accountId)
         {
             foreach (UserAddress userAddress in userAddresses)
@@ -158,7 +163,7 @@ namespace ConsoleApp1
 
             return null;
         }
-
+        //method to get all items from a user where bids have been made
         public List<ProductListing> GetUserItemBids(AccountId accountId)
         {
             List<ProductListing> userItemBids = new List<ProductListing>();
@@ -175,7 +180,7 @@ namespace ConsoleApp1
 
             return userItemBids;
         }
-
+        //method to get all products for a user
         public List<ProductListing> GetUserProducts(AccountId accountId)
         {
             List<ProductListing> userProducts = new List<ProductListing>();
@@ -189,6 +194,7 @@ namespace ConsoleApp1
             }
             return userProducts;
         }
+        //method to get all products according to a search term
         public List<ProductListing> GetSearchProducts(string searchTerm)
         {
             List<ProductListing> userProducts = new List<ProductListing>();
@@ -202,11 +208,12 @@ namespace ConsoleApp1
             }
             return userProducts;
         }
+        //method to return all products
         public List<ProductListing> GetAllProducts()
         {
             return products;
         }
-
+        //method to get the bid on a product via the product id
         public ProductBid GetProductBids(int id)
         {
             foreach (ProductBid bid in bids)
@@ -216,7 +223,7 @@ namespace ConsoleApp1
 
             return null;
         }
-
+        //method to get the product lisitng via the id
         public ProductListing GetProductListing(int id)
         {
             foreach (ProductListing listing in products)
@@ -226,7 +233,7 @@ namespace ConsoleApp1
 
             return null;
         }
-
+        //method to get the delivery address via the product id
         public DeliveryAddress GetDeliveryAddress(int id)
         {
             foreach (DeliveryAddress deliveryAddress in deliveryAddresses)
@@ -235,6 +242,7 @@ namespace ConsoleApp1
             }
             return null;
         }
+        //method to get the saved click and collect time via the product id
         public ClickAndCollect GetClickColTime(int id)
         {
             foreach (ClickAndCollect clickCol in clickColTimes)
@@ -243,7 +251,7 @@ namespace ConsoleApp1
             }
             return null;
         }
-
+        //method to get all purchases via a user email
         public List<ProductPurchase> GetProductPurchases(AccountId accountId)
         {
             List<ProductPurchase> userPurchases = new List<ProductPurchase>();

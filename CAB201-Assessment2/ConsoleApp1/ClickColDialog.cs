@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+	/// <summary>
+	/// class to get user input and create click and collect times
+	/// </summary>
     internal class ClickColDialog
     {
 		const string STARTTIMEPROMPT = "\nDelivery window start (dd/mm/yyyy hh:mm)";

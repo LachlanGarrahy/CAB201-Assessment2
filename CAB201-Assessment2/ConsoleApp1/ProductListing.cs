@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to instantiate product listings
+    /// </summary>
     public class ProductListing: Product
     {
         public ProductListing(AccountId accountId, int id, string name, string desc, string price) : base(accountId, id, name, desc, price)

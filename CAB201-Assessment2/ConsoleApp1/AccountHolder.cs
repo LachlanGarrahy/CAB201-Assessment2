@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to create the account holders stored within the system
+    /// </summary>
     public class AccountHolder
     {
         public AccountHolder(AccountId accountId, string name, AccountPass accountPass)
         {
+            // Ensures account details are valid and creates account
             if (IsValid(accountId, name, accountPass))
             {
                 AccountId = accountId;
@@ -46,8 +50,9 @@ namespace ConsoleApp1
             return $"{AccountId}\t{Name}\t{AccountPass}";
         }
 
+        //Checks if the supplied email address matches a stored account and reaturns true or false
         public bool AccountIdMatches(AccountId accountId) { return this.AccountId.Equals(accountId); }
-
+        //Checks if the supplied password matches a stored account and reaturns true or false
         public bool AccountPassMatches(AccountPass accountPass) { return this.AccountPass.Equals(accountPass); }
     }
 }

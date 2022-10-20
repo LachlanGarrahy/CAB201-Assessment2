@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to instatiate the users address
+    /// </summary>
     public class UserAddress: Address
     {
         public UserAddress(AccountId accountId, int unitNo, int stNo, string stName, string suffix, string city, string state, int postcode) : base(unitNo, stNo, stName, suffix, city, state, postcode)

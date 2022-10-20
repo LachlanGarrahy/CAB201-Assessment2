@@ -8,6 +8,10 @@ using System.Globalization;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to add everything to the database when the program is closed
+    /// and initialise everything from the database at runtime
+    /// </summary>
     internal class DataBase
     {
         public DataBase()
@@ -17,7 +21,7 @@ namespace ConsoleApp1
 
         private const string fileName = ("./dataSheet.txt");
         private const string DELIM = "\t";
-
+        //methods to save the fields to the database
         public static void SaveAccountHoldersToDb(string accountHolder)
         {
             string[] fields = accountHolder.Split(DELIM);
@@ -75,6 +79,7 @@ namespace ConsoleApp1
             writer.Write($"ClickCol\t{fields[0]}\t{fields[1]}\t{fields[2]}\n");
         }
 
+        //method to initialise database
         public void InitialiseDb(AuctionHouse house)
         {
             if (File.Exists(fileName))
@@ -87,7 +92,7 @@ namespace ConsoleApp1
                 File.Delete(fileName);
             }
         }
-
+        //method to check the lines of the text file
         private void checkLines(StreamReader reader, AuctionHouse house)
         {
             while (!reader.EndOfStream)
@@ -104,6 +109,7 @@ namespace ConsoleApp1
                 else if (fields[0] == "ClickCol") createTimes(fields, house);
             }
         }
+        //methods to instantiate the objects and save them in runtime within the auctionhouse
         private void createClients(string[] fields, AuctionHouse house)
         {
             AccountId.TryParse(fields[1], out AccountId currentId);

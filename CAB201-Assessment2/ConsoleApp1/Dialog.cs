@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to initialise the display and dialog
+    /// </summary>
     public class Dialog
     {
         protected AuctionHouse AuctionHouse { get; }

@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to check the string against regex
+    /// </summary>
     internal class RegexChecker
     {
         internal static bool CheckRegex(string strRegex, string processString)

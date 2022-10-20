@@ -7,6 +7,9 @@ using static System.Console;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class for the user menu
+    /// </summary>
     public class UserMenu : Dialog
     {
         const string ADVERTISE = "Advertise Product",
@@ -78,9 +81,7 @@ namespace ConsoleApp1
                     break;
             }
         }
-
-        
-
+        //methods to instatiate classes for users to interface with the system
         private void Advertise()
         {
             string title = string.Format(advertise_title, holder.Name, holder.AccountId);

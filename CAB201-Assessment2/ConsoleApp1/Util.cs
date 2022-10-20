@@ -7,6 +7,9 @@ using static System.Console;
 
 namespace ConsoleApp1
 {
+	/// <summary>
+	/// class to instatiate methods to get user inputs
+	/// </summary>
     internal class Util
     {
 		private const string price_regex = @"^\$\d+.\d\d$",
@@ -14,6 +17,7 @@ namespace ConsoleApp1
 			EMAILERROR = "\n\tThe supplied value is not a valid email address",
 			PWDERROR = "\n\tThe supplied value is not a valid password",
 			WHITESPACEERROR = "\n\the supplied Value cannot be whitespace";
+
 		internal static uint ReadUint(params string[] options)
 		{
 			for (int i = 0; i < options.Length; i++)
@@ -34,8 +38,7 @@ namespace ConsoleApp1
 				}
 			}
 		}
-
-
+		
 		internal static AccountId ReadAccountId(string prompt)
 		{
 			AccountId acct;

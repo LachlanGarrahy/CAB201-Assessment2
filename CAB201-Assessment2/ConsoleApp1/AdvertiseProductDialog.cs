@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to create products within the system
+    /// </summary>
     internal class AdvertiseProductDialog: Dialog
     {
         private AccountHolder holder;
@@ -20,24 +23,30 @@ namespace ConsoleApp1
         {
             this.holder = holder;
         }
-
+        //method to get user input and create items within the sytsem
         public override void Display()
         {
             Console.WriteLine($"\n{Title}");
 
+            GetProductInformation();
+
+            Console.WriteLine($"\nSuccessfully added product {productName}, {productDesc}, {price}");
+
+            AuctionHouse.RegisterNewProduct(holder.AccountId, productName, productDesc, price);
+        }
+        private void GetProductInformation()
+        {
+
             productName = Util.getString(PRODUCT_NAME_PROMPT);
-            while (true) {
+            while (true)
+            {
                 productDesc = Util.getString(PRODUCT_DESC_PROMPT);
                 if (productDesc != productName) break;
                 Console.WriteLine(PRODUCT_DESC_ERROR);
             }
 
-            
+
             price = Util.getPrice(PRODUCT_PRICE_PROMPT);
-
-            Console.WriteLine($"\nSuccessfully added product {productName}, {productDesc}, {price}");
-
-            AuctionHouse.RegisterNewProduct(holder.AccountId, productName, productDesc, price);
         }
     }
 }

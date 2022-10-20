@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// method to create the sale object
+    /// </summary>
     internal class MakeSale
     {
         private AuctionHouse house;
@@ -25,20 +28,13 @@ namespace ConsoleApp1
             this.house = house;
             this.products = products;
         }
-
+        //method to get relevant information
         public void Display()
         {
             searchTerm = Util.getString(SEARCHPROMPT);
             if (searchTerm != "yes") return;
 
-            string itemPropmt = $"\nPlease enter a non-negative integer between 1 and {products.Count()}:";
-
-            while (true)
-            {
-                itemNumber = Util.getNumber(itemPropmt);
-                if (itemNumber > 0 & itemNumber <= products.Count()) break;
-                Console.WriteLine(OUTOFBOUNDSERROR, products.Count());
-            }
+            getItemNumber();
 
             item = getProductInfo(itemNumber);
             bid = getBid(item.ProductId);
@@ -48,7 +44,17 @@ namespace ConsoleApp1
 
             house.CreateSale(bid.AccountId, bid.ProductId, bid.Name, bid.Description, bid.Price, bid.BidderAccountId, bid.BidPrice, bid.Delivery);
         }
-
+        //method to get the relevant information
+        private void getItemNumber()
+        {
+            string itemPropmt = $"\nPlease enter a non-negative integer between 1 and {products.Count()}:";
+            while (true)
+            {
+                itemNumber = Util.getNumber(itemPropmt);
+                if (itemNumber > 0 & itemNumber <= products.Count()) break;
+                Console.WriteLine(OUTOFBOUNDSERROR, products.Count());
+            }
+        }
         private Product getProductInfo(int item)
         {
             return products[item - 1];

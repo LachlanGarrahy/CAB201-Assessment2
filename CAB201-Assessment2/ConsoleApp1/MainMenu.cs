@@ -7,6 +7,9 @@ using static System.Console;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to show the main menu and allow the user to register, sign in or quit
+    /// </summary>
     public class MainMenu : Dialog
     {
         const string REGISTER = "Register",
@@ -42,7 +45,7 @@ namespace ConsoleApp1
                 Process(option);
             }
         }
-
+        //method to process the user input
         private void Process(uint option)
         {
             switch (option)

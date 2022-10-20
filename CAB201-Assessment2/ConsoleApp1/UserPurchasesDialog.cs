@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to show user purchases
+    /// </summary>
     internal class UserPurchasesDialog: Dialog
     {
         private AccountHolder holder;
@@ -47,14 +50,12 @@ namespace ConsoleApp1
                 Console.WriteLine($"{i + 1}\t{purchases[i].AccountId}\t{purchases[i].Name}\t{purchases[i].Description}\t{purchases[i].Price}\t{purchases[i].BidPrice}\t{delivery}");
             }
         }
-
+        //method to return wether the delivery is an address or time
         private string GetDelivery(int productId, string Delivery)
         {
             if (Delivery == "delivery") return GetAddress(productId);
 
             return GetTime(productId);
-
-
         }
 
         private string GetAddress(int productId)

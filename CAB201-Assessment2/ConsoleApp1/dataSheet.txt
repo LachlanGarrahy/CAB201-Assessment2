@@ -198,6 +198,8 @@ Address	cdobson2u@livejournal.com	5	77	Hanson	Alley	Orneta	TAS	6649
 Address	mmasdon2v@ifeng.com	5	1	Heffernan	Place	Catu	NSW	1189
 Address	rrendbaek2w@xing.com	8	92191	Badeau	Plaza	Yenakiyeve	QLD	5949
 Address	ngallier2x@geocities.jp	7	564	Logan	Way	Baqiu	TAS	2356
+Product	bmcgiff6@deviantart.com	0	Sorrel - Fresh	a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan	$29.61
+Product	bmcgiff6@deviantart.com	1	Cheese - Mozzarella, Shredded	a suscipit nulla elit ac nulla sed vel enim sit amet	$22.48
 Product	bmcgiff6@deviantart.com	2	Doilies - 7, Paper	magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis	$6.17
 Product	bmcgiff6@deviantart.com	3	Peach - Fresh	nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus	$61.69
 Product	bmcgiff6@deviantart.com	4	Nut - Cashews, Whole, Raw	ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices	$15.72
@@ -1129,9 +1131,3 @@ Product	drought2q@unblog.fr	929	Yoghurt Tubes	vivamus vestibulum sagittis sapien
 Product	drought2q@unblog.fr	930	Juice - Grape, White	interdum in ante vestibulum ante ipsum primis in faucibus orci luctus et	$198.68
 Product	drought2q@unblog.fr	931	Rambutan	eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in	$66.07
 Product	drought2q@unblog.fr	932	Mushroom - Porcini Frozen	lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis	$2.33
-Bid	bmcgiff6@deviantart.com	2	Doilies - 7, Paper	magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis	$6.17	lgenike7@baidu.com	$14.00	delivery
-Purchase	bmcgiff6@deviantart.com	0	Sorrel - Fresh	a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan	$29.61	lgenike7@baidu.com	$1.00	delivery
-Purchase	bmcgiff6@deviantart.com	1	Cheese - Mozzarella, Shredded	a suscipit nulla elit ac nulla sed vel enim sit amet	$22.48	lgenike7@baidu.com	$2.00	clickcol
-Delivery	0	3	2	Maywood	Circle	Micheng	SA	2514
-Delivery	2	3	2	Maywood	Circle	Micheng	SA	2514
-ClickCol	1	10/12/2022 10:00:00 AM	10/12/2022 11:00:00 AM

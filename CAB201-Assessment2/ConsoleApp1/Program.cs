@@ -1,5 +1,8 @@
 ﻿namespace ConsoleApp1
 {
+	/// <summary>
+	/// class to start the program
+	/// </summary>
 	internal class Program
 	{
 		private const string Title = "Main Menu\n" +

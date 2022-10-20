@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// class to instatiate the user products
+    /// </summary>
     internal class UserProductsDialog: ProductDisplay
     {
 

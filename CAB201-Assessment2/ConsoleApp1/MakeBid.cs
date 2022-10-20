@@ -7,6 +7,9 @@ using System.Globalization;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// method to allow the user to create a bid
+    /// </summary>
     internal class MakeBid
     {
         private AccountHolder holder;
@@ -40,7 +43,7 @@ namespace ConsoleApp1
             this.holder = holder;
             this.products = products;
         }
-
+        //method to get all fields and create the bid item
         public void Display()
         {
             searchTerm = Util.getString(SEARCHPROMPT);
@@ -60,7 +63,7 @@ namespace ConsoleApp1
             if (bid == null) house.CreateBid(item.AccountId, item.ProductId, item.Name, item.Description, item.Price, holder.AccountId, currentBid, deliveryOption);
             else house.UpdateBid(item.AccountId, item.ProductId, item.Name, item.Description, item.Price, holder.AccountId, currentBid, deliveryOption);
         }
-
+        //method to get the item the user wishes to make a bid on
         private void GetItem()
         {
             string itemPropmt = $"\nPlease enter a non-negative integer between 1 and {products.Count()}:";
@@ -78,7 +81,7 @@ namespace ConsoleApp1
             if (bid != null) bidPrice = bid.BidPrice;
             Console.WriteLine($"\nBidding for {item.Name} (regular price {item.Price}), current highest bid {bidPrice}");
         }
-
+        //method to get the bid
         private void getNewBid()
         {
             while (true)
@@ -87,7 +90,7 @@ namespace ConsoleApp1
                 if (isBidBigger(currentBid)) break;
             }
         }
-
+        //method to process the user option
         private void Process(uint option)
         {
             switch (option)
@@ -103,18 +106,23 @@ namespace ConsoleApp1
                     break;
             }
         }
-
+        //method to get click and collect times
         private void clickAndCollect()
         {
             deliveryOption = "clickcol";
             ClickColDialog clickCol = new ClickColDialog(house);
             clickCol.getClickColTimes(item.ProductId);
         }
-
+        //method to get delivery information
         private void homeDelivery()
         {
             deliveryOption = "delivery";
             bool registered = getRegistered();
+            getDeliveryAddressInfo(registered);
+        }
+        //method to prompt the user call the methods to input their data
+        private void getDeliveryAddressInfo(bool registered)
+        {
             if (registered)
             {
                 UserAddress address = house.GetUserAddress(holder.AccountId);
@@ -129,7 +137,7 @@ namespace ConsoleApp1
                 registerAddress.createDeliveryAddress(item.ProductId);
             }
         }
-
+        //method to ask the user if they wish to use their registered address
         private bool getRegistered()
         {
             Console.WriteLine("Would you like to use your registered address?");
@@ -138,18 +146,17 @@ namespace ConsoleApp1
             if (answer == "yes") return true;
             return false;
         }
-
+        //method to get the product the user selected
         private Product getProductInfo(int item)
         {
             return products[item-1];
         }
-        
-
+        //method to get the user bid
         private ProductBid getBid(int productId)
         {
             return house.GetProductBids(productId);
         }
-
+        //method to check whether the bid is bigger than the current bid
         private bool isBidBigger(string bidString)
         {
             existingBidDecimal = decimal.Parse(bidPrice, NumberStyles.Currency);
