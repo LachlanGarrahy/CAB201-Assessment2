@@ -13,15 +13,9 @@ namespace ConsoleApp1
     {
         private AuctionHouse house;
         private List<ProductListing> products = new List<ProductListing>();
-        private Product item;
-        private ProductBid bid;
-        private string bidderName;
 
-        private const string SEARCHPROMPT = "\nwould you like to sell something (yes or no)?",
+        private const string SEARCHPROMPT = "would you like to sell something (yes or no)?",
             OUTOFBOUNDSERROR = "\n\tValue must be between 1 and {0}";
-
-        private string searchTerm;
-        private int itemNumber = 0;
 
         public MakeSale(AuctionHouse house, List<ProductListing> products)
         {
@@ -31,29 +25,30 @@ namespace ConsoleApp1
         //method to get relevant information
         public void Display()
         {
-            searchTerm = Util.getString(SEARCHPROMPT);
+            string searchTerm = Util.getString(SEARCHPROMPT);
             if (searchTerm != "yes") return;
 
-            getItemNumber();
+            int itemNumber = getItemNumber();
 
-            item = getProductInfo(itemNumber);
-            bid = getBid(item.ProductId);
-            bidderName = getBidderName(bid.BidderAccountId);
+            Product item = getProductInfo(itemNumber);
+            ProductBid bid = getBid(item.ProductId);
+            string bidderName = getBidderName(bid.BidderAccountId);
 
             Console.WriteLine($"\nYou have sold {bid.Name} to {bidderName} for {bid.BidPrice}.");
 
             house.CreateSale(bid.AccountId, bid.ProductId, bid.Name, bid.Description, bid.Price, bid.BidderAccountId, bid.BidPrice, bid.Delivery);
         }
         //method to get the relevant information
-        private void getItemNumber()
+        private int getItemNumber()
         {
             string itemPropmt = $"\nPlease enter a non-negative integer between 1 and {products.Count()}:";
             while (true)
             {
-                itemNumber = Util.getNumber(itemPropmt);
-                if (itemNumber > 0 & itemNumber <= products.Count()) break;
+                int itemNumber = Util.getNumber(itemPropmt);
+                if (itemNumber > 0 & itemNumber <= products.Count()) return itemNumber;
                 Console.WriteLine(OUTOFBOUNDSERROR, products.Count());
             }
+            
         }
         private Product getProductInfo(int item)
         {

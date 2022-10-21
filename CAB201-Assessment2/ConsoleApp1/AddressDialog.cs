@@ -16,7 +16,7 @@ namespace ConsoleApp1
 
 		private string[] states = { "ACT", "NSW", "NT", "QLD", "TAS", "VIC", "WA", "SA" };
 
-		private string[] prompts = { "\nUnit number (0 = none):", "\nStreet number:", "\nStreet name:", "\nStreet suffix:", "\nCity:", "\nPostcode (1000 .. 9999):" };
+		private string[] prompts = { "Unit number (0 = none):", "Street number:", "Street name:", "Street suffix:", "City:", "Postcode (1000 .. 9999):" };
 
 		private const string UNITNOERROR = "\n\tUnit number must be a non-negative integer.",
 			STNONEGATIVEERROR = "\n\tStreet number must be a positive integer",
@@ -100,7 +100,7 @@ namespace ConsoleApp1
 		}
 		private void GetState()
         {
-			string statePrompt = $"\nState ({states[0]}, {states[1]}, {states[2]}, {states[3]}, {states[4]}, {states[5]}, {states[6]}):";
+			string statePrompt = $"State ({states[0]}, {states[1]}, {states[2]}, {states[3]}, {states[4]}, {states[5]}, {states[6]}):";
 			while (!states.Contains(state)) state = Util.getString(statePrompt).ToUpper();
 		}
 		private void GetPostcode()

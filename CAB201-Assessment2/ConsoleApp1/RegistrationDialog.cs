@@ -11,9 +11,9 @@ namespace ConsoleApp1
 	/// </summary>
 	public class RegistrationDialog : Dialog
 	{
-		private const string namePrompt = "\nPlease enter your name",
-			emailPrompt = "\nPlease enter your email address",
-			passPrompt = "\nPlease choose a password\n" +
+		private const string namePrompt = "Please enter your name",
+			emailPrompt = "Please enter your email address",
+			passPrompt = "Please choose a password\n" +
 				"* At least 8 characters\n" +
 				"* No white space characters\n" +
 				"* At least one upper-case letter\n" +

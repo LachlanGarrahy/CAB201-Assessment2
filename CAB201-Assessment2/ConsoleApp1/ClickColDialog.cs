@@ -11,11 +11,11 @@ namespace ConsoleApp1
 	/// </summary>
     internal class ClickColDialog
     {
-		const string STARTTIMEPROMPT = "\nDelivery window start (dd/mm/yyyy hh:mm)";
-		const string ENDTIMEPROMPT = "\nDelivery window end (dd/mm/yyyy hh:mm)";
-		const string NOTDATEERROR = "\tPlease enter a valid date and time.";
-		const string TOOEARLYSTARTERROR = "\tDelivery window start must be at least one hour in the future.";
-		const string TOOEARLYENDERROR = "\tDelivery window end must be at least one hour later than the start.";
+		const string STARTTIMEPROMPT = "Delivery window start (dd/mm/yyyy hh:mm)";
+		const string ENDTIMEPROMPT = "Delivery window end (dd/mm/yyyy hh:mm)";
+		const string NOTDATEERROR = "\n\tPlease enter a valid date and time.";
+		const string TOOEARLYSTARTERROR = "\n\tDelivery window start must be at least one hour in the future.";
+		const string TOOEARLYENDERROR = "\n\tDelivery window end must be at least one hour later than the start.";
 		const string SUCCESS = "\nThankyou for your bid. If successful the item will be provided via collection between {0} on {1}/{2}/{3} and {4} on {5}/{6}/{7}";
 
 		AuctionHouse house;

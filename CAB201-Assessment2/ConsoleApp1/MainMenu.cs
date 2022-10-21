@@ -16,9 +16,7 @@ namespace ConsoleApp1
             SIGNIN = "Sign In",
             EXIT = "Exit";
 
-        const string CLOSING_TEXT = "\n+--------------------------------------------------+\n" +
-            "| Good bye, thank you for using the Auction House! |\n" +
-            "+--------------------------------------------------+";
+       
 
         const uint REGISTER_OPT = 1,
             SIGNIN_OPT = 2,
@@ -36,9 +34,7 @@ namespace ConsoleApp1
                 uint option = Util.ReadUint(REGISTER, SIGNIN, EXIT);
 
                 if (option == EXIT_OPT)
-                {
-                    AuctionHouse.saveData();
-                    WriteLine(CLOSING_TEXT);
+                { 
                     break;
                 }
 

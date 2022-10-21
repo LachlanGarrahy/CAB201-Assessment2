@@ -21,62 +21,55 @@ namespace ConsoleApp1
 
         private const string fileName = ("./dataSheet.txt");
         private const string DELIM = "\t";
-        //methods to save the fields to the database
+        //methods to get fields parsed through string from auctionhouse class
         public static void SaveAccountHoldersToDb(string accountHolder)
         {
             string[] fields = accountHolder.Split(DELIM);
 
-            using StreamWriter writer = File.AppendText(fileName);
-
-            writer.Write($"Client\t{fields[0]}\t{fields[1]}\t{fields[2]}\n");
+            WriteToDb($"Client\t{fields[0]}\t{fields[1]}\t{fields[2]}\n");
         }
         public static void SaveUserAddressesToDb(string addresses)
         {
             string[] fields = addresses.Split(DELIM);
 
-            using StreamWriter writer = File.AppendText(fileName);
-
-            writer.Write($"Address\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
+            WriteToDb($"Address\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
         }
         public static void SaveProductsToDb(string products)
         {
             string[] fields = products.Split(DELIM);
 
-            using StreamWriter writer = File.AppendText(fileName);
-
-            writer.Write($"Product\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\n");
+            WriteToDb($"Product\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\n");
         }
         public static void SaveBidsToDb(string bids)
         {
             string[] fields = bids.Split(DELIM);
 
-            using StreamWriter writer = File.AppendText(fileName);
-
-            writer.Write($"Bid\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
+            WriteToDb($"Bid\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
         }
         public static void SavePurchasesToDb(string purchases)
         {
             string[] fields = purchases.Split(DELIM);
 
-            using StreamWriter writer = File.AppendText(fileName);
-
-            writer.Write($"Purchase\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
+            WriteToDb($"Purchase\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
         }
         public static void SaveDeliveryAddressesToDb(string addresses)
         {
             string[] fields = addresses.Split(DELIM);
 
-            using StreamWriter writer = File.AppendText(fileName);
-
-            writer.Write($"Delivery\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
+            WriteToDb($"Delivery\t{fields[0]}\t{fields[1]}\t{fields[2]}\t{fields[3]}\t{fields[4]}\t{fields[5]}\t{fields[6]}\t{fields[7]}\n");
         }
         public static void SaveTimesToDb(string times)
         {
             string[] fields = times.Split(DELIM);
+            WriteToDb($"ClickCol\t{fields[0]}\t{fields[1]}\t{fields[2]}\n");
+        }
 
+        //method to write details to the database
+        private static void WriteToDb(string line)
+        {
             using StreamWriter writer = File.AppendText(fileName);
 
-            writer.Write($"ClickCol\t{fields[0]}\t{fields[1]}\t{fields[2]}\n");
+            writer.Write(line);
         }
 
         //method to initialise database

@@ -15,10 +15,10 @@ namespace ConsoleApp1
 
         private string productName, productDesc, price;
 
-        private const string PRODUCT_NAME_PROMPT = "\nProduct name",
-            PRODUCT_DESC_PROMPT = "\nProduct description",
-            PRODUCT_PRICE_PROMPT = "\nProduct price ($d.cc)",
-            PRODUCT_DESC_ERROR = "\nProduct description cannot be the same as product name";
+        private const string PRODUCT_NAME_PROMPT = "Product name",
+            PRODUCT_DESC_PROMPT = "Product description",
+            PRODUCT_PRICE_PROMPT = "Product price ($d.cc)",
+            PRODUCT_DESC_ERROR = "Product description cannot be the same as product name";
         public AdvertiseProductDialog(AccountHolder holder, string title, AuctionHouse house) : base(title, house)
         {
             this.holder = holder;

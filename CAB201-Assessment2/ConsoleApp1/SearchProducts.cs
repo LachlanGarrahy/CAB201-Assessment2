@@ -15,7 +15,6 @@ namespace ConsoleApp1
         private AccountHolder holder;
         private const string searchPrompt = "Please supply a search phrase (ALL to see all products)",
             errorMessage = "No items could be found for search term {0}";
-        private string searchTerm;
         public SearchProducts(AccountHolder holder, string title, AuctionHouse house) : base(title, house)
         {
             this.holder = holder;
@@ -25,9 +24,9 @@ namespace ConsoleApp1
         {
             Console.WriteLine($"\n{Title}");
 
-            searchTerm = Util.getString(searchPrompt);    
+            string searchTerm = Util.getString(searchPrompt);    
             
-            createCurrentProductList();
+            createCurrentProductList(searchTerm);
 
             Console.WriteLine("\nSearch results\n--------------");
 
@@ -44,7 +43,7 @@ namespace ConsoleApp1
             makeBidDialog.Display();
         }
         //method to create the product list
-        private void createCurrentProductList()
+        private void createCurrentProductList(string searchTerm)
         {
             List <ProductListing> tempProducts = new List <ProductListing>();
 

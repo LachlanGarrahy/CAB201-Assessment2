@@ -18,8 +18,8 @@ namespace ConsoleApp1
         private Product item;
         private ProductBid bid;
 
-        private const string SEARCHPROMPT = "\nwould you like to place a bid on any of these items (yes or no)?",
-            BIDPROMPT = "\nHow much do you bid?",
+        private const string SEARCHPROMPT = "would you like to place a bid on any of these items (yes or no)?",
+            BIDPROMPT = "How much do you bid?",
             DELIVERYTITLE = "\nDelivery Instructions\n--------------------",
             BIDERROR = "\n\tPlease enter an amount higher than the current bid",
             CLICKCOL = "Click and Collect",
@@ -32,9 +32,6 @@ namespace ConsoleApp1
         private string searchTerm;
         private int itemNumber = 0;
         private string bidPrice = "$0.00";
-        private string currentBid;
-        private decimal existingBidDecimal;
-        private decimal currentBidDecimal;
         private string deliveryOption;
 
         public MakeBid(AccountHolder holder, AuctionHouse house, List<ProductListing> products)
@@ -51,7 +48,7 @@ namespace ConsoleApp1
 
             GetItem();
 
-            getNewBid();
+            string currentBid = getNewBid();
 
             Console.WriteLine($"\nYour bid of {currentBid} for {item.Name} is placed.");
 
@@ -82,12 +79,12 @@ namespace ConsoleApp1
             Console.WriteLine($"\nBidding for {item.Name} (regular price {item.Price}), current highest bid {bidPrice}");
         }
         //method to get the bid
-        private void getNewBid()
+        private string getNewBid()
         {
             while (true)
             {
-                currentBid = Util.getPrice(BIDPROMPT);
-                if (isBidBigger(currentBid)) break;
+                string currentBid = Util.getPrice(BIDPROMPT);
+                if (isBidBigger(currentBid)) return currentBid;
             }
         }
         //method to process the user option
@@ -159,8 +156,8 @@ namespace ConsoleApp1
         //method to check whether the bid is bigger than the current bid
         private bool isBidBigger(string bidString)
         {
-            existingBidDecimal = decimal.Parse(bidPrice, NumberStyles.Currency);
-            currentBidDecimal = decimal.Parse(bidString, NumberStyles.Currency);
+            decimal existingBidDecimal = decimal.Parse(bidPrice, NumberStyles.Currency);
+            decimal currentBidDecimal = decimal.Parse(bidString, NumberStyles.Currency);
             if (existingBidDecimal >= currentBidDecimal)
             {
                 Console.WriteLine(BIDERROR);

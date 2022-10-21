@@ -16,13 +16,14 @@ namespace ConsoleApp1
         private const string itemDialog = "\nItem #\tProduct name\tDescription\tList Price\tBidder name\tBidder email\tBid amt",
             bidDataNull = "-\t-\t-";
 
-        private string bidderName, bidData;
         public ProductDisplay(string title, AuctionHouse house) : base(title, house)
         {
         }
         //method to display the product results for searching, viewing bids on products and viewing products
         public void DisplayProducts(List<ProductListing> products)
         {
+            string bidData;
+
             Console.WriteLine(itemDialog);
 
             for (int i = 0; i < products.Count; i++)
@@ -30,7 +31,7 @@ namespace ConsoleApp1
                 bid = getBid(products[i].ProductId);
                 if (bid != null)
                 {
-                    bidderName = AuctionHouse.GetAccountId(bid.BidderAccountId).Name;
+                    string bidderName = AuctionHouse.GetAccountId(bid.BidderAccountId).Name;
                     bidData = $"{bidderName}\t{bid.BidderAccountId}\t{bid.BidPrice}";
                 }
                 else

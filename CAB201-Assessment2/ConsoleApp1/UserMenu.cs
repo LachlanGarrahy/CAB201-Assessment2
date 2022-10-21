@@ -17,7 +17,12 @@ namespace ConsoleApp1
             SEARCH = "Search For Advertised Products",
             VIEW_BIDS = "View Bids On My Products",
             VIEW_PURCHASES = "View My Purchased Items",
-            LOG_OFF = "Log off";
+            LOG_OFF = "Log off",
+            advertise_title = "Product Advertisement for {0}({1})\n",
+            get_products_title = "Product List for {0}({1})\n",
+            search_title = "Product Search for {0}({1})\n",
+            get_product_bids_title = "List Product Bids for {0}({1})\n",
+            get_purchases_title = "Purchased Items for {0}({1})\n";
 
         const uint ADVERTISE_OPT = 1,
             MY_PRODUCTS_OPT = 2,
@@ -25,12 +30,6 @@ namespace ConsoleApp1
             VIEW_BIDS_OPT = 4,
             VIEW_PURCHASES_OPT = 5,
             LOG_OFF_OPT = 6;
-
-        string advertise_title = "Product Advertisement for {0}({1})\n",
-            get_products_title = "Product List for {0}({1})\n",
-            search_title = "Product Search for {0}({1})\n",
-            get_product_bids_title = "List Product Bids for {0}({1})\n",
-            get_purchases_title = "Purchased Items for {0}({1})\n";
 
         private AccountHolder holder;
         private List<ProductListing> products = new List<ProductListing>();

@@ -16,7 +16,7 @@ namespace ConsoleApp1
 			PRICEERROR = "\n\tPrice must be in $d.cc",
 			EMAILERROR = "\n\tThe supplied value is not a valid email address",
 			PWDERROR = "\n\tThe supplied value is not a valid password",
-			WHITESPACEERROR = "\n\the supplied Value cannot be whitespace";
+			WHITESPACEERROR = "\n\the supplied Value cannot be null or whitespace";
 
 		internal static uint ReadUint(params string[] options)
 		{
@@ -44,7 +44,7 @@ namespace ConsoleApp1
 			AccountId acct;
 			while (true)
 			{
-				Console.WriteLine(prompt);
+				Console.WriteLine($"\n{prompt}");
 
 				Write("> ");
 				string id = Console.ReadLine();
@@ -64,7 +64,7 @@ namespace ConsoleApp1
 			AccountPass pass;
 			while (true)
 			{
-				Console.WriteLine(prompt);
+				Console.WriteLine($"\n{prompt}");
 
 				Write("> ");
 				string pwdinput = Console.ReadLine();
@@ -84,7 +84,7 @@ namespace ConsoleApp1
 			string searchTerm;
 			while (true)
 			{
-				Console.WriteLine(prompt);
+				Console.WriteLine($"\n{prompt}");
 
 				Write("> ");
 				searchTerm = Console.ReadLine();
@@ -103,7 +103,7 @@ namespace ConsoleApp1
 			int number;
 			while (true)
 			{
-				Console.WriteLine(prompt);
+				Console.WriteLine($"\n{prompt}");
 				Write("> ");
 
 				if (int.TryParse(Console.ReadLine(), out number))
@@ -118,7 +118,7 @@ namespace ConsoleApp1
 			string price;
 			while (true)
 			{
-				Console.WriteLine(prompt);
+				Console.WriteLine($"\n{prompt}");
 
 				Write("> ");
 				price = Console.ReadLine();
@@ -137,7 +137,7 @@ namespace ConsoleApp1
 			DateTime dateTime;
 			while (true)
 			{
-				Console.WriteLine(prompt);
+				Console.WriteLine($"\n{prompt}");
 				Write("> ");
 
 				if (DateTime.TryParse(Console.ReadLine(), out dateTime))

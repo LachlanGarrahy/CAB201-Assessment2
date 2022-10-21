@@ -9,7 +9,10 @@
 									"---------";
 		private const string Logo = "+------------------------------+\n" +
 									"| Welcome to the Auction House |\n" +
-									"+------------------------------+";
+									"+------------------------------+",
+							 CLOSING_TEXT = "\n+--------------------------------------------------+\n" +
+											"| Good bye, thank you for using the Auction House! |\n" +
+											"+--------------------------------------------------+";
 
 		static void Main(string[] args)
 		{
@@ -20,7 +23,9 @@
 			MainMenu menu = new MainMenu(Title, house);
 			data.InitialiseDb(house);
 			menu.Display();
+			house.saveData();
 
+			Console.WriteLine(CLOSING_TEXT);
 		}
 	}
 }

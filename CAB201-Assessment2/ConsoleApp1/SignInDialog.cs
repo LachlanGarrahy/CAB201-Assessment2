@@ -11,6 +11,13 @@ namespace ConsoleApp1
     /// </summary>
     public class SignInDialog : Dialog
     {
+        private const string emailPrompt = "Please enter the account email",
+                            passPrompt = "Please enter the account password",
+                            clientMenu = "Client Menu\n-----------",
+                            notRecognisedError = "\nAccount id not recognised...",
+                            accountAddressPrompt = "Personal Details for {0}({1})\n" +
+                                                    "----------------------------------------------------------\n";
+
         public SignInDialog(string title, AuctionHouse house) : base(title, house)
         {
             // throw new System.NotImplementedException();
@@ -20,9 +27,9 @@ namespace ConsoleApp1
         {
             Console.WriteLine($"\n{Title}");
 
-            AccountId acct = Util.ReadAccountId("\nPlease enter the account email");
+            AccountId acct = Util.ReadAccountId(emailPrompt);
 
-            AccountPass acctPass = Util.ReadAccountPass("\nPlease enter the account password");
+            AccountPass acctPass = Util.ReadAccountPass(passPrompt);
 
             AccountHolder holder = AuctionHouse.GetAccountHolder(acct, acctPass);
 
@@ -34,20 +41,19 @@ namespace ConsoleApp1
             if (holder != null)
             {
                 if (!AuctionHouse.HasAddress(holder.AccountId)) initialiseAccountAddress(holder);
-                UserMenu menu = new UserMenu(holder, "Client Menu\n-----------", AuctionHouse);
+                UserMenu menu = new UserMenu(holder, clientMenu, AuctionHouse);
                 menu.Display();
             }
             else
             {
 
-                Console.WriteLine("\nAccount id not recognised...");
+                Console.WriteLine(notRecognisedError);
             }
         }
         //method to intialise the accounts address
         private void initialiseAccountAddress(AccountHolder holder)
         {
-            string addressTitle = $"Personal Details for {holder.Name}({holder.AccountId})\n" +
-                       "----------------------------------------------------------\n";
+            string addressTitle = string.Format(accountAddressPrompt, holder.Name, holder.AccountId);
             AddressDialog registerAddress = new AddressDialog(holder, AuctionHouse);
             registerAddress.createUserAddress(addressTitle);
 
